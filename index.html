@@ -3,307 +3,46 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>鎮瀾院藏書樓目錄｜龍生九子</title>
+<title>龍生九子｜鎮瀾院藏書樓</title>
+<meta name="description" content="《龍生九子》世界觀：除夕夜，藏書樓裡的一個故事。">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&family=LXGW+WenKai+TC&display=swap" rel="stylesheet">
 <style>
 :root{
-  --qing-d:#0e3436; --qing:#1d5b5c; --lv:#4f9a8c; --ci:#a9d3c5;
-  --zhu-d:#5e1a12; --zhu:#a83a26; --ju:#d9783b;
-  --gold:#c9a24a; --gold-l:#ecd38a;
-  --paper:#f4e7cc; --ink:#2b1a12; --ochre:#9c5a2e;
+  --qing-d:#0e3436;--qing:#1d5b5c;--lv:#4f9a8c;--ci:#a9d3c5;
+  --zhu-d:#5e1a12;--zhu:#a83a26;--ju:#d9783b;
+  --gold:#c9a24a;--gold-l:#ecd38a;
+  --paper:#f4e7cc;--ink:#2b1a12;--ochre:#9c5a2e;
   --serif:'Noto Serif TC','Songti TC','PMingLiU',serif;
   --hand:'LXGW WenKai TC','Kaiti TC','DFKai-SB',var(--serif);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{
-  margin:0;font-family:var(--serif);color:var(--ink);line-height:1.95;font-size:16px;
-  background:
-    radial-gradient(circle at 20% 10%,rgba(79,154,140,.18),transparent 40%),
-    radial-gradient(circle at 80% 90%,rgba(201,162,74,.10),transparent 45%),
-    var(--qing-d);
-}
-a{color:var(--zhu)}
-img{max-width:100%;display:block}
-
-/* ── 回紋帶 ── */
-.huiwen{
-  height:14px;margin:0;
-  background:
-    repeating-linear-gradient(90deg,var(--gold) 0 4px,transparent 4px 8px,var(--gold) 8px 12px,transparent 12px 28px),
-    linear-gradient(var(--gold),var(--gold)) top/100% 2px no-repeat,
-    linear-gradient(var(--gold),var(--gold)) bottom/100% 2px no-repeat,
-    var(--qing);
-}
-
-/* ── 目錄導覽 ── */
-nav.toc{
-  position:sticky;top:0;z-index:20;background:rgba(14,52,54,.96);
-  border-bottom:2px solid var(--gold);backdrop-filter:blur(4px);
-}
-nav.toc ul{list-style:none;margin:0 auto;padding:.5rem 1rem;display:flex;gap:.3rem 1.2rem;flex-wrap:wrap;justify-content:center;max-width:1100px}
-nav.toc a{color:var(--gold-l);text-decoration:none;font-size:.92rem;letter-spacing:.08em;white-space:nowrap}
-nav.toc a:hover{color:#fff}
-
-/* ── 書頁：藻井式多層邊框 ── */
-.book{max-width:1260px;margin:2.5rem auto 4rem;padding:0 1rem}
-.page{
-  position:relative;background:var(--paper);
-  background-image:repeating-linear-gradient(transparent 0 31px,rgba(156,90,46,.13) 31px 32px);
-  padding:3.2rem 240px;margin-bottom:2.6rem;
-  border:2px solid var(--gold);
-  box-shadow:
-    0 0 0 6px var(--qing),
-    0 0 0 8px var(--gold),
-    0 0 0 14px var(--zhu-d),
-    0 0 0 16px var(--gold-l),
-    0 18px 40px 16px rgba(0,0,0,.45);
-}
-.page.wide{padding-left:3.4rem;padding-right:3.4rem}
-.page::before{ /* 內框細線 */
-  content:"";position:absolute;inset:10px;border:1px solid rgba(156,90,46,.45);pointer-events:none;
-}
-
-/* ── 標題 ── */
-.sec-head{text-align:center;margin:0 0 2rem}
-.sec-head .en{display:block;font-size:.72rem;letter-spacing:.35em;color:var(--ochre);text-transform:uppercase}
-.sec-head h2{margin:.2rem 0 0;font-size:1.9rem;font-weight:900;color:var(--qing-d);letter-spacing:.12em}
-.sec-head .sub{display:block;font-size:.9rem;color:var(--ochre);margin-top:.2rem}
-h3{font-size:1.2rem;color:var(--zhu-d);margin:2.2rem 0 .6rem;letter-spacing:.06em}
-h3 .meta{font-size:.8rem;font-weight:400;color:var(--ochre);margin-left:.6rem;letter-spacing:0}
-
-/* ── 容觀復按語 ── */
-.anyu{
-  border-left:3px solid #cf8233;padding:.2rem 0 .2rem 1rem;margin:1rem 0;
-  color:#6b4a2c;font-size:.95rem;
-}
-.anyu::before{content:"編者按　";color:#cf8233;font-weight:600}
-
-/* ── 頁邊批註 ── */
-.entry{position:relative}
-.note{
-  position:absolute;right:-245px;top:.2rem;width:205px;
-  font-family:var(--hand);font-style:italic;font-size:1rem;line-height:1.6;
-  color:var(--c);transform:rotate(var(--r,-2deg));
-  padding:.2rem .4rem;border-left:2px solid var(--c);
-}
-.note.l{right:auto;left:-245px;border-left:none;border-right:2px solid var(--c);text-align:right}
-.note b{display:block;font-style:normal;font-size:.78rem;opacity:.8;letter-spacing:.1em}
-
-/* ── 硃砂方印 ── */
-.seal{
-  display:inline-grid;place-items:center;width:58px;height:58px;
-  background:var(--zhu);color:#fbe9d8;font-weight:900;font-size:1.05rem;line-height:1.05;
-  border-radius:4px;box-shadow:inset 0 0 0 3px var(--zhu),inset 0 0 0 5px #fbe9d8;
-  writing-mode:vertical-rl;letter-spacing:.05em;transform:rotate(-4deg);user-select:none;
-}
-
-/* ── 封面 ── */
-.cover{padding:0;overflow:hidden}
-.cover .hero{position:relative;aspect-ratio:16/9;background:var(--qing-d)}
-.cover .hero img{width:100%;height:100%;object-fit:cover;opacity:.92}
-.cover .hero .wm{position:absolute;right:4%;bottom:6%;width:22%;opacity:.55;mix-blend-mode:screen}
-.cover .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(14,52,54,.85))}
-.cover .title{position:relative;padding:2.4rem 3.4rem 2.8rem;text-align:center}
-.cover .title .en{font-size:.75rem;letter-spacing:.4em;color:var(--ochre)}
-.cover .title h1{margin:.4rem 0 .2rem;font-size:2.7rem;font-weight:900;letter-spacing:.2em;color:var(--qing-d)}
-.cover .title .by{color:var(--ochre);letter-spacing:.2em}
-.cover .title .seal{position:absolute;right:3.4rem;top:2.2rem}
-.preface{max-width:620px;margin:1.8rem auto 0;text-align:left;font-size:1.02rem}
-.preface p{margin:.4rem 0}
-.preface .sign{text-align:right;color:var(--ochre)}
-
-/* ── 凡例 ── */
-ol.fanli{counter-reset:f;list-style:none;padding:0}
-ol.fanli li{counter-increment:f;padding-left:2.4rem;position:relative;margin:.5rem 0}
-ol.fanli li::before{content:counter(f,cjk-ideographic) "、";position:absolute;left:0;color:var(--zhu);font-weight:600}
-
-/* ── 書目條 ── */
-.biblio{display:flex;flex-wrap:wrap;gap:.2rem 1.4rem;font-size:.85rem;color:var(--ochre);border-bottom:1px dashed rgba(156,90,46,.5);padding-bottom:.3rem;margin-bottom:.6rem}
-.biblio span::before{content:"◆ ";color:var(--gold)}
-
-/* ── 卷二夾頁：朱絲欄 ── */
-.jiaye{
-  position:relative;margin:1.2rem 0 0;padding:2.4rem 2.6rem 2rem;
-  background:#f8eedc;
-  border:1px solid rgba(168,58,38,.55);outline:3px double rgba(168,58,38,.45);outline-offset:6px;
-  transform:rotate(-.6deg);box-shadow:6px 10px 18px rgba(43,26,18,.18);
-}
-.jiaye::before{ /* 紙膠帶 */
-  content:"";position:absolute;top:-14px;left:50%;width:120px;height:26px;margin-left:-60px;
-  background:rgba(236,211,138,.75);transform:rotate(2deg);box-shadow:0 1px 2px rgba(0,0,0,.15);
-}
-.jiaye .clip{font-size:.8rem;color:var(--ochre);text-align:right;margin:-1rem 0 1rem}
-.jiaye h3.jt{text-align:center;font-size:1.5rem;color:var(--zhu);letter-spacing:.3em;margin:0}
-.jiaye .jt-by{text-align:center;color:var(--zhu-d);font-size:.9rem;margin-bottom:1.4rem}
-.jiaye h4{color:var(--zhu);margin:1.4rem 0 .3rem;font-size:1.05rem;letter-spacing:.1em}
-.jiaye p{margin:.3rem 0}
-.jiaye .colophon{text-align:right;margin-top:1.6rem;color:var(--zhu-d)}
-.jiaye .colophon .seal{width:44px;height:44px;font-size:.85rem;vertical-align:middle;margin-left:.6rem}
-.jiaye ul{margin:.3rem 0;padding-left:1.3rem}
-
-/* ── 卷三：卷軸 ── */
-.group-img{margin:1.4rem 0 .4rem;border:3px solid var(--gold);box-shadow:0 0 0 3px var(--qing)}
-.caption{font-size:.82rem;color:var(--ochre);text-align:center;margin-bottom:1.6rem}
-details.scroll{position:relative;margin:1.1rem 0}
-details.scroll>summary{
-  list-style:none;cursor:pointer;position:relative;padding:.75rem 1.4rem .75rem 4.6rem;
-  background:linear-gradient(180deg,#123f41,var(--qing-d));color:var(--gold-l);
-  border-radius:3px;border:1px solid var(--gold);
-  box-shadow:inset 0 0 0 3px var(--qing-d),inset 0 0 0 4px rgba(201,162,74,.5);
-}
-details.scroll>summary::-webkit-details-marker{display:none}
-details.scroll>summary::before,details.scroll>summary::after{ /* 軸頭 */
-  content:"";position:absolute;top:50%;width:14px;height:56px;margin-top:-28px;border-radius:7px;
-  background:linear-gradient(90deg,var(--zhu-d),var(--zhu),var(--zhu-d));box-shadow:0 0 0 2px var(--gold);
-}
-details.scroll>summary::before{left:-8px}
-details.scroll>summary::after{right:-8px}
-details.scroll .num{position:absolute;left:1.4rem;top:50%;transform:translateY(-50%);width:2.2rem;height:2.2rem;display:grid;place-items:center;border-radius:50%;background:var(--c);color:#fff;font-weight:900}
-details.scroll .nm{font-size:1.15rem;font-weight:600;letter-spacing:.1em}
-details.scroll .nm small{font-size:.8rem;color:var(--ci);margin-left:.6rem;font-weight:400}
-details.scroll .hint{float:right;font-size:.8rem;color:var(--ci)}
-details.scroll[open] .hint::after{content:"捲起"}
-details.scroll:not([open]) .hint::after{content:"展開"}
-.scroll-body{
-  margin:0 .6rem;padding:1.6rem 1.6rem 1.2rem;background:#f9efdb;
-  border:1px solid rgba(156,90,46,.4);border-top:none;
-  animation:unroll .45s ease-out;transform-origin:top;
-}
-@keyframes unroll{from{opacity:0;transform:scaleY(.85)}to{opacity:1;transform:none}}
-.scroll-grid{display:grid;grid-template-columns:170px 1fr;gap:1.4rem}
-.scroll-grid .por{border:2px solid var(--c);box-shadow:0 0 0 3px #f9efdb,0 0 0 4px var(--gold)}
-.scroll-grid .form{grid-column:1/-1;border:2px solid var(--gold)}
-dl.spec{margin:0;display:grid;grid-template-columns:6.5em 1fr;gap:.3rem .8rem}
-dl.spec dt{color:var(--c);font-weight:600}
-dl.spec dd{margin:0}
-.jiuzhang{margin-top:1rem;padding-top:.6rem;border-top:1px dashed rgba(156,90,46,.5)}
-.jiuzhang h5{margin:0 0 .3rem;color:var(--ochre);font-size:.9rem;letter-spacing:.2em}
-.jiuzhang ul{margin:0;padding-left:1.2rem}
-.scroll-note{font-family:var(--hand);font-style:italic;color:var(--c2);margin-top:.9rem;font-size:1rem}
-.scroll-note b{font-style:normal;font-size:.8rem;opacity:.8;margin-right:.4rem}
-
-/* ── 卷四：輿圖 ── */
-.map-wrap{margin:0 -200px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:1.4rem;align-items:start;margin-top:1.2rem}
-.map-wrap svg{width:100%;height:auto;background:#efe0c0;border:3px solid var(--gold);box-shadow:0 0 0 3px var(--qing)}
-.zone{cursor:pointer}
-.zone rect,.zone path,.zone circle{fill:rgba(29,91,92,.16);stroke:var(--qing);stroke-width:1.6;transition:fill .2s}
-.zone:hover rect,.zone:hover path,.zone:hover circle{fill:rgba(201,162,74,.35)}
-.zone.on rect,.zone.on path,.zone.on circle{fill:rgba(168,58,38,.28);stroke:var(--zhu);stroke-width:2.4}
-.zone text{font-family:var(--serif);font-size:19px;fill:var(--qing-d);font-weight:600;text-anchor:middle;pointer-events:none}
-.zone text.s{font-size:13px;font-weight:400;fill:var(--ochre)}
-.map-panel{background:#f9efdb;border:1px solid rgba(156,90,46,.5);padding:1.3rem 1.4rem;min-height:300px;position:sticky;top:4rem}
-.map-panel h4{margin:0 0 .2rem;color:var(--zhu-d);font-size:1.25rem;letter-spacing:.1em}
-.map-panel .era{font-size:.8rem;color:var(--ochre);margin-bottom:.6rem}
-.map-panel p{margin:.4rem 0}
-.map-panel .rooms{margin-top:.8rem;font-size:.92rem}
-.map-panel .rooms b{color:var(--qing)}
-.map-tip{font-size:.82rem;color:var(--ochre);margin-top:.5rem}
-
-/* ── 卷五：名帖 ── */
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.2rem;margin:1rem 0 1.6rem}
-.mingtie{
-  position:relative;background:#fbf1de;padding:1.1rem 1.1rem 1rem;
-  border:1px solid var(--zhu);box-shadow:inset 0 0 0 4px #fbf1de,inset 0 0 0 5px rgba(168,58,38,.45);
-  font-size:.92rem;line-height:1.75;
-}
-.mingtie.fei{border-color:var(--lv);box-shadow:inset 0 0 0 4px #fbf1de,inset 0 0 0 5px rgba(79,154,140,.6)}
-.mingtie .n{font-size:1.25rem;font-weight:900;color:var(--zhu-d);letter-spacing:.12em}
-.mingtie.fei .n{color:var(--qing)}
-.mingtie .a{font-size:.8rem;color:var(--ochre);margin-bottom:.4rem}
-.mingtie p{margin:.25rem 0}
-.mingtie .k{color:var(--ochre);font-size:.82rem}
-.mingtie .hn{font-family:var(--hand);font-style:italic;color:var(--c);border-top:1px dashed rgba(156,90,46,.4);margin-top:.5rem;padding-top:.4rem;transform:rotate(-1deg)}
-.mingtie .hn b{font-style:normal;font-size:.75rem;opacity:.8;margin-right:.3rem}
-
-/* ── 卷六：登記卡 ── */
-.reg{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.1rem;margin-top:1rem}
-.regcard{
-  position:relative;background:#efe6d2;padding:1rem 1.1rem 1rem 1.2rem;
-  border:1px solid #8f7b5c;box-shadow:2px 3px 0 rgba(43,26,18,.15);font-size:.92rem;
-}
-.regcard::after{content:"";position:absolute;top:.9rem;right:.9rem;width:10px;height:10px;border-radius:50%;background:var(--qing-d);box-shadow:0 0 0 3px #efe6d2,0 0 0 4px #8f7b5c}
-.regcard .no{font-size:.78rem;letter-spacing:.2em;color:var(--ochre)}
-.regcard .pm{font-size:1.15rem;font-weight:900;color:var(--ink);margin:.1rem 0 .5rem;letter-spacing:.08em}
-.regcard dl{margin:0;display:grid;grid-template-columns:5.2em 1fr;gap:.2rem .6rem}
-.regcard dt{color:var(--qing);font-weight:600}
-.regcard dd{margin:0}
-.unlisted{margin-top:2.4rem;display:flex;align-items:center;justify-content:flex-end;gap:1rem;color:rgba(156,90,46,.55);font-size:.85rem}
-.unlisted .seal{cursor:pointer;opacity:.8;transition:transform .15s}
-.unlisted .seal:active{transform:rotate(-4deg) scale(.94)}
-.unlisted .seal.shake{animation:shake .3s}
-@keyframes shake{25%{transform:rotate(-8deg)}75%{transform:rotate(2deg)}}
-
-/* ── 未編目 ── */
-#hidden{display:none}
-#hidden.show{display:block}
-.warn{background:var(--zhu-d);color:var(--paper);padding:1.4rem 1.6rem;text-align:center;border:2px solid var(--gold)}
-.warn button{margin-top:.8rem;font-family:var(--serif);font-size:1rem;background:var(--gold);color:var(--ink);border:none;padding:.4rem 1.6rem;cursor:pointer;letter-spacing:.2em}
-#secret{display:none}
-#secret.show{display:block}
-.page.dark{background:#1a1410;background-image:repeating-linear-gradient(transparent 0 31px,rgba(201,162,74,.08) 31px 32px);color:#e9dcc0}
-.page.dark .sec-head h2{color:var(--gold-l)}
-.page.dark h3{color:#e0a074}
-.page.dark .anyu{color:#d9b48a}
-.secret-entry{margin:1.6rem 0;padding-bottom:1.2rem;border-bottom:1px solid rgba(201,162,74,.25)}
-.secret-entry .src{font-size:.8rem;color:var(--gold);letter-spacing:.15em}
-
-/* ── 借閱卡 ── */
-.loan{border:2px solid var(--qing);background:#fbf3e2;margin-top:1rem}
-.loan .row{display:grid;grid-template-columns:7em 1fr 1.3fr;border-bottom:1px solid rgba(29,91,92,.35)}
-.loan .row>div{padding:.55rem .8rem;border-right:1px solid rgba(29,91,92,.25)}
-.loan .row>div:last-child{border-right:none}
-.loan .hd{background:var(--qing);color:var(--gold-l);font-size:.85rem;letter-spacing:.2em}
-.loan .who{font-family:var(--hand);font-size:1.08rem;color:var(--c);font-style:italic}
-.loan .bk{font-size:.93rem}
-.loan .rm{font-family:var(--hand);font-size:.98rem;color:#6b4a2c}
-.loan .strike{text-decoration:line-through;opacity:.6}
-
-/* ── 頁尾 ── */
-footer{text-align:center;color:var(--gold-l);padding:1rem 1rem 3rem;letter-spacing:.3em}
-footer .hook{font-size:1.25rem}
-footer small{display:block;color:var(--ci);letter-spacing:.1em;margin-top:.4rem;font-size:.8rem}
-
-/* 漸顯 */
-.fade{opacity:0;transform:translateY(14px);transition:opacity .7s,transform .7s}
-.fade.in{opacity:1;transform:none}
-
-/* ── 窄螢幕 ── */
-@media (max-width:1000px){
-  .page{padding:2.4rem 1.6rem}
-  .note,.note.l{position:static;width:auto;margin:.6rem 0 1rem 1rem;transform:rotate(-1deg);text-align:left;border-right:none;border-left:2px solid var(--c)}
-  .map-wrap{grid-template-columns:1fr;margin:0}
-  .map-panel{position:static}
-}
-@media (max-width:600px){
-  .scroll-grid{grid-template-columns:1fr}
-  .scroll-grid .por{max-width:180px}
-  dl.spec{grid-template-columns:1fr}
-  dl.spec dt{margin-top:.4rem}
-  .cover .title{padding:2rem 1.2rem}
-  .cover .title h1{font-size:2rem;letter-spacing:.1em}
-  .cover .title .seal{position:static;margin-top:1rem}
-  .loan .row{grid-template-columns:1fr}
-  .loan .row>div{border-right:none}
-  .jiaye{padding:2rem 1.2rem 1.6rem}
-}
-
-/* ═════ 開場 ═════ */
+body{margin:0;font-family:var(--serif);color:var(--paper);line-height:1.9;font-size:16px;background:#0a2324;
+  background-image:radial-gradient(ellipse at 50% 0,rgba(79,154,140,.14),transparent 60%)}
 body.locked{overflow:hidden}
+img,video{display:block;max-width:100%}
+a{color:var(--gold-l)}
+button{font-family:inherit;cursor:pointer}
+.huiwen{height:12px;background:
+  repeating-linear-gradient(90deg,var(--gold) 0 4px,transparent 4px 8px,var(--gold) 8px 12px,transparent 12px 28px),
+  linear-gradient(var(--gold),var(--gold)) top/100% 2px no-repeat,linear-gradient(var(--gold),var(--gold)) bottom/100% 2px no-repeat,var(--qing)}
+.seal{display:inline-grid;place-items:center;width:52px;height:52px;background:var(--zhu);color:#fbe9d8;font-weight:900;font-size:.95rem;line-height:1.05;border-radius:4px;box-shadow:inset 0 0 0 3px var(--zhu),inset 0 0 0 5px #fbe9d8;writing-mode:vertical-rl;transform:rotate(-4deg);user-select:none;font-family:var(--serif)}
+
+/* ═ 開場 ═ */
 #gate{position:fixed;inset:0;z-index:100;display:grid;place-items:center;background:#06191a;transition:opacity 1.1s}
 #gate.gone{opacity:0;pointer-events:none}
 #gate .g-bg{position:absolute;inset:0;background:url('https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=1200/charim/8fd3fd0f-4045-405a-bbc8-6aa8072833b6?v=6d16c0') center/cover;filter:brightness(.55);animation:slowzoom 18s ease-out forwards}
-#gate .g-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(6,25,26,.1) 20%,rgba(6,25,26,.88) 85%)}
+#gate .g-bg::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(6,25,26,.1) 20%,rgba(6,25,26,.9) 85%)}
 @keyframes slowzoom{from{transform:scale(1.12)}to{transform:scale(1)}}
-#gate .g-in{position:relative;text-align:center;color:var(--paper);padding:2rem 1rem}
+#gate .g-in{position:relative;text-align:center;padding:2rem 1rem}
 .g-sub{font-size:.85rem;letter-spacing:.6em;color:var(--ci);opacity:0;animation:fadein 1.4s .4s forwards}
 .g-title{font-size:clamp(2.6rem,9vw,4.6rem);font-weight:900;letter-spacing:.35em;margin-right:-.35em;color:var(--gold-l);text-shadow:0 4px 24px rgba(0,0,0,.7);opacity:0;animation:fadein 1.6s .9s forwards}
 .g-sub2{font-size:.9rem;letter-spacing:.4em;color:var(--ci);opacity:0;animation:fadein 1.4s 1.6s forwards}
 .g-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-top:2.2rem;opacity:0;animation:fadein 1.2s 2.2s forwards}
 @keyframes fadein{to{opacity:1}}
-.g-btn{font-family:var(--serif);font-size:1rem;letter-spacing:.25em;padding:.55rem 1.8rem;background:var(--gold);color:var(--ink);border:none;cursor:pointer;box-shadow:0 0 0 2px var(--qing-d),0 0 0 3px var(--gold)}
+.g-btn{font-family:var(--serif);font-size:1rem;letter-spacing:.25em;padding:.55rem 1.8rem;background:var(--gold);color:var(--ink);border:none;box-shadow:0 0 0 2px var(--qing-d),0 0 0 3px var(--gold)}
 .g-btn.ghost{background:rgba(14,52,54,.6);color:var(--gold-l);box-shadow:0 0 0 1px var(--gold)}
 .g-btn:hover{filter:brightness(1.12)}
 #pv{position:fixed;inset:0;z-index:120;background:rgba(3,12,13,.93);display:none;place-items:center}
@@ -312,833 +51,636 @@ body.locked{overflow:hidden}
 #pv .frame{position:relative;aspect-ratio:16/9;border:2px solid var(--gold)}
 #pv iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 #pv .row{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;font-size:.9rem}
-#pv a{color:var(--gold-l)}
-nav.toc .pvbtn{background:none;border:1px solid var(--gold);color:var(--gold-l);font-family:var(--serif);font-size:.85rem;padding:0 .6rem;cursor:pointer}
 
-/* ═════ 藏書樓入口 ═════ */
-.hall{margin:0 auto 3rem;max-width:1100px;text-align:center;color:var(--paper)}
-.hall-head .en{font-size:.72rem;letter-spacing:.45em;color:var(--ci)}
-.hall-head h1{margin:.3rem 0 .1rem;font-size:2.2rem;font-weight:900;letter-spacing:.18em;color:var(--gold-l)}
-.hall-head .by{color:#e0a074;letter-spacing:.25em;font-size:.95rem;margin-bottom:1.4rem}
-.shelfpic{position:relative;border:2px solid var(--gold);box-shadow:0 0 0 6px var(--qing),0 0 0 8px var(--gold),0 0 0 14px var(--zhu-d),0 0 0 16px var(--gold-l),0 20px 50px 10px rgba(0,0,0,.5)}
-.shelfpic img{width:100%;height:auto;display:block}
+/* ═ 導覽 ═ */
+nav.toc{position:sticky;top:0;z-index:20;background:rgba(14,52,54,.96);border-bottom:2px solid var(--gold);backdrop-filter:blur(4px)}
+nav.toc ul{list-style:none;margin:0 auto;padding:.5rem 1rem;display:flex;gap:.3rem 1.2rem;justify-content:center;max-width:1100px;flex-wrap:wrap}
+nav.toc a{color:var(--gold-l);text-decoration:none;font-size:.9rem;letter-spacing:.08em;white-space:nowrap}
+nav.toc a:hover{color:#fff}
+nav.toc .pvbtn{background:none;border:1px solid var(--gold);color:var(--gold-l);font-size:.85rem;padding:0 .6rem}
+
+/* ═ 章節 ═ */
+main{max-width:1180px;margin:0 auto;padding:0 1rem 2rem}
+.ch{position:relative;margin:4.5rem 0 5rem}
+.plate{position:relative;margin:0;border:2px solid var(--gold);box-shadow:0 0 0 5px var(--qing-d),0 0 0 7px rgba(201,162,74,.6),0 24px 50px rgba(0,0,0,.55);overflow:hidden;background:#06191a}
+.plate img,.plate video{width:100%;height:auto}
+.plate figcaption{position:absolute;left:0;right:0;bottom:0;padding:2.4rem 1.4rem .8rem;background:linear-gradient(transparent,rgba(6,25,26,.88));font-size:.95rem;color:var(--paper);letter-spacing:.05em}
+.plate figcaption b{color:var(--gold-l);margin-right:.6rem;letter-spacing:.15em}
+.ch-card{position:relative;width:min(720px,100%);margin:-3.2rem auto 0;z-index:2;background:var(--paper);color:var(--ink);padding:2.4rem 2.6rem 2rem;
+  box-shadow:0 0 0 1px var(--gold),0 0 0 6px var(--paper),0 0 0 7px rgba(156,90,46,.5),0 18px 40px rgba(0,0,0,.5)}
+.ch-no{text-align:center;font-size:.78rem;letter-spacing:.5em;color:var(--ochre)}
+.ch-card h2{text-align:center;margin:.1rem 0 1.4rem;font-size:1.9rem;font-weight:900;letter-spacing:.3em;color:var(--qing-d)}
+.ch-card h2::before,.ch-card h2::after{content:"❖";font-size:.9rem;color:var(--gold);margin:0 .8rem;vertical-align:middle}
+.narr p{margin:0 0 1.05rem;font-size:1.06rem;line-height:2;opacity:0;transform:translateY(10px);transition:opacity .9s,transform .9s}
+.narr p.q{color:var(--zhu-d);font-weight:600}
+.narr.in p{opacity:1;transform:none}
+.narr.in p:nth-child(2){transition-delay:.25s}.narr.in p:nth-child(3){transition-delay:.5s}.narr.in p:nth-child(4){transition-delay:.75s}.narr.in p:nth-child(5){transition-delay:1s}.narr.in p:nth-child(6){transition-delay:1.25s}.narr.in p:nth-child(7){transition-delay:1.5s}
+.signoff{text-align:right;color:#cf8233;font-family:var(--hand);font-size:.95rem}
+
+/* 細目 */
+details.more{margin-top:1.4rem;border-top:1px dashed rgba(156,90,46,.55)}
+details.more>summary{list-style:none;cursor:pointer;padding:.9rem 0 .2rem;text-align:center;color:var(--qing);font-size:.92rem;letter-spacing:.2em}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:"＋ ";color:var(--zhu)}
+details.more[open]>summary::before{content:"－ "}
+details.more>summary:hover{color:var(--zhu)}
+.more-in{padding:1rem 0 .4rem;font-size:.95rem;line-height:1.9;animation:fold .4s ease-out}
+@keyframes fold{from{opacity:0;transform:translateY(-6px)}}
+.more-in h3{font-size:1.05rem;color:var(--zhu-d);margin:1.4rem 0 .4rem;letter-spacing:.06em}
+.more-in h3:first-child{margin-top:.2rem}
+.more-in p{margin:.4rem 0}
+.more-in ul{padding-left:1.2rem;margin:.4rem 0}
+.biblio{font-size:.78rem;color:var(--ochre);border-bottom:1px dashed rgba(156,90,46,.4);padding-bottom:.2rem;margin-bottom:.5rem}
+.biblio span{margin-right:1rem}.biblio span::before{content:"◆ ";color:var(--gold)}
+.anyu{border-left:3px solid #cf8233;padding:.1rem 0 .1rem .8rem;margin:.8rem 0;color:#6b4a2c;font-size:.93em}
+.anyu::before{content:"編者按　";color:#cf8233;font-weight:600}
+.slip{float:right;clear:both;width:min(62%,300px);margin:.7rem -.2rem .4rem .8rem;padding:.5rem .7rem;background:#fffaf0;font-family:var(--hand);font-style:italic;font-size:.98rem;line-height:1.55;color:var(--c);
+  border-left:3px solid var(--c);transform:rotate(var(--r,-2deg));box-shadow:2px 3px 6px rgba(43,26,18,.18)}
+.slip.l{float:left;margin:.7rem .8rem .4rem -.2rem}
+.slip b{display:block;font-style:normal;font-size:.72rem;letter-spacing:.15em;opacity:.8}
+.clr{clear:both}
+/* 祭典記 */
+.jidian{background:#f8eedc;border:1px solid rgba(168,58,38,.5);outline:3px double rgba(168,58,38,.35);outline-offset:5px;padding:1.6rem 1.6rem 1.2rem;margin:.4rem 0 1rem}
+.jidian .jt{text-align:center;color:var(--zhu);font-size:1.4rem;font-weight:900;letter-spacing:.35em}
+.jidian .jb{text-align:center;color:var(--zhu-d);font-size:.88rem;margin-bottom:1rem}
+.jidian h4{color:var(--zhu);margin:1.1rem 0 .2rem;letter-spacing:.12em}
+.jidian .colo{text-align:right;color:var(--zhu-d);margin-top:1.2rem}
+.jidian .colo .seal{width:42px;height:42px;font-size:.8rem;vertical-align:middle;margin-left:.5rem}
+
+/* ═ 序章：書架熱區 ═ */
+.shelfpic{position:relative}
 .hot{position:absolute;display:block;border-radius:8px;outline:none;transition:box-shadow .25s,background .25s;text-decoration:none}
 .hot i{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px 0 0 -6px;border-radius:50%;background:var(--gold-l);box-shadow:0 0 0 3px rgba(236,211,138,.35),0 0 14px 4px rgba(236,211,138,.6);animation:breathe 2.6s ease-in-out infinite;pointer-events:none}
 @keyframes breathe{50%{opacity:.35;transform:scale(.75)}}
-.hot span{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,4px);white-space:nowrap;background:var(--paper);color:var(--ink);font-size:.85rem;font-weight:600;letter-spacing:.15em;padding:.25rem .8rem;border:1px solid var(--zhu);box-shadow:0 4px 10px rgba(0,0,0,.45);opacity:0;transition:.25s;pointer-events:none}
+.hot span{position:absolute;left:50%;bottom:calc(100% + 8px);transform:translate(-50%,4px);white-space:nowrap;background:var(--paper);color:var(--ink);font-size:.85rem;font-weight:600;letter-spacing:.15em;padding:.25rem .8rem;border:1px solid var(--zhu);box-shadow:0 4px 10px rgba(0,0,0,.45);opacity:0;transition:.25s;pointer-events:none;z-index:3}
 .hot:hover,.hot:focus-visible{background:rgba(236,211,138,.1);box-shadow:0 0 0 2px var(--gold-l),0 0 26px rgba(236,211,138,.55)}
 .hot:hover span,.hot:focus-visible span{opacity:1;transform:translate(-50%,0)}
-.hot.hid{cursor:default}
-.hot.hid:hover{background:none;box-shadow:none}
+.hot.hid{cursor:default}.hot.hid:hover{background:none;box-shadow:none}
 .hot.hid.wig{animation:wig .35s}
 @keyframes wig{25%{transform:translate(-2px,-2px) rotate(-1deg)}75%{transform:translate(2px,0) rotate(1deg)}}
-@media (hover:none){.hot span{opacity:.92;transform:translate(-50%,0);font-size:.7rem;padding:.1rem .45rem;letter-spacing:.05em}}
-.hall-tip{color:var(--ci);font-size:.88rem;margin:1.4rem 0 1.6rem}
-.hall .memo{position:relative;max-width:620px;margin:0 auto;text-align:left;background:#f7ecd4;color:#4a2e1b;padding:1.4rem 1.6rem 1.2rem;transform:rotate(-.8deg);box-shadow:4px 8px 20px rgba(0,0,0,.45);font-family:var(--hand);font-size:1.05rem;line-height:1.85}
-.hall .memo::before{content:"";position:absolute;top:-12px;left:50%;width:100px;height:24px;margin-left:-50px;background:rgba(236,211,138,.8);transform:rotate(-2deg)}
-.hall .memo p{margin:.3rem 0}
-.hall .memo .sign{text-align:right;color:#cf8233;font-size:.92rem;display:flex;justify-content:flex-end;align-items:center;gap:.8rem}
-.hall .memo .seal{width:46px;height:46px;font-size:.85rem;font-family:var(--serif)}
+@media (hover:none){.hot span{opacity:.92;transform:translate(-50%,0);font-size:.68rem;padding:.05rem .4rem;letter-spacing:.05em}}
+.shelf-tip{text-align:center;color:var(--ci);font-size:.85rem;margin:.9rem 0 0}
+ol.fl{list-style:none;padding:0;counter-reset:f}
+ol.fl li{counter-increment:f;padding-left:2.2rem;position:relative;margin:.4rem 0}
+ol.fl li::before{content:counter(f,cjk-ideographic) "、";position:absolute;left:0;color:var(--zhu);font-weight:600}
 
-/* ═════ 九盞燈 ═════ */
+/* ═ 第三章：九子 ═ */
+.sons{display:grid;gap:2.6rem;margin-top:3rem}
+.son .plate figcaption{font-size:1.05rem;padding:3rem 1.6rem 1rem}
+.son-tag{display:flex;align-items:center;gap:.7rem;margin-bottom:.3rem}
+.son-tag .num{width:2rem;height:2rem;border-radius:50%;background:var(--c);color:#fff;font-weight:900;display:grid;place-items:center;font-size:.9rem;box-shadow:0 0 0 2px rgba(236,211,138,.7)}
+.son-tag .nm{font-weight:900;font-size:1.2rem;letter-spacing:.15em;color:var(--gold-l)}
+.son-tag .nm small{font-weight:400;font-size:.8rem;color:var(--ci);margin-left:.5rem;letter-spacing:.1em}
+.son-line{font-family:var(--hand);font-size:1.12rem;color:var(--paper)}
+.son-more{width:min(860px,100%);margin:0 auto;background:var(--paper);color:var(--ink);padding:0 1.8rem;box-shadow:0 0 0 1px var(--gold);border-top:none}
+.son-more details.more{margin-top:0;border-top:none}
+.son-grid{display:grid;grid-template-columns:150px 1fr;gap:1.3rem;align-items:start}
+.son-grid .por{border:2px solid var(--c);box-shadow:0 0 0 3px var(--paper),0 0 0 4px var(--gold)}
+dl.spec{margin:0;display:grid;grid-template-columns:6.2em 1fr;gap:.3rem .8rem}
+dl.spec dt{color:var(--c);font-weight:600}
+dl.spec dd{margin:0}
+.ledger{margin-top:1rem;padding-top:.5rem;border-top:1px dashed rgba(156,90,46,.5)}
+.ledger h5{margin:0 0 .3rem;color:var(--ochre);font-size:.86rem;letter-spacing:.25em}
+
+/* ═ 第四章：三景 ═ */
+.scenes{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.6rem}
+.scenes .plate figcaption{font-size:.88rem;padding:2rem 1rem .7rem}
+.map-wrap{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:1.2rem;align-items:start;margin-top:.8rem}
+.map-wrap svg{width:100%;height:auto;background:#efe0c0;border:3px solid var(--gold);box-shadow:0 0 0 3px var(--qing)}
+.zone{cursor:pointer;outline:none}
+.zone rect,.zone path,.zone circle{fill:rgba(29,91,92,.16);stroke:var(--qing);stroke-width:1.6;transition:fill .2s}
+.zone:hover rect,.zone:hover path,.zone:hover circle,.zone:focus-visible rect{fill:rgba(201,162,74,.35)}
+.zone.on rect,.zone.on path,.zone.on circle{fill:rgba(168,58,38,.28);stroke:var(--zhu);stroke-width:2.4}
+.zone text{font-family:var(--serif);font-size:19px;fill:var(--qing-d);font-weight:600;text-anchor:middle;pointer-events:none}
+.zone text.s{font-size:13px;font-weight:400;fill:var(--ochre)}
+.map-panel{background:#fbf3e2;border:1px solid rgba(156,90,46,.5);padding:1rem 1.1rem;min-height:260px;font-size:.92rem}
+.map-panel h4{margin:0 0 .1rem;color:var(--zhu-d);font-size:1.15rem;letter-spacing:.1em}
+.map-panel .era{font-size:.78rem;color:var(--ochre);margin-bottom:.4rem}
+.map-panel .rooms{margin-top:.6rem;font-size:.88rem}
+.map-panel .rooms b{color:var(--qing)}
+
+/* ═ 第五章：時間軸 ═ */
+.tl{position:relative;width:min(860px,100%);margin:3rem auto 0;padding-left:0}
+.tl::before{content:"";position:absolute;left:62px;top:0;bottom:0;width:2px;background:linear-gradient(var(--gold),var(--zhu) 50%,var(--gold))}
+.day{position:relative;display:grid;grid-template-columns:124px 1fr;gap:1rem;margin-bottom:2rem}
+.day .d{position:relative;text-align:center;padding-top:.2rem}
+.day .d b{display:inline-block;min-width:76px;background:var(--zhu);color:var(--gold-l);font-size:1.05rem;letter-spacing:.15em;padding:.2rem .6rem;box-shadow:0 0 0 2px #0a2324,0 0 0 3px var(--gold);position:relative;z-index:1}
+.day .d small{display:block;color:var(--ci);font-size:.75rem;margin-top:.3rem;letter-spacing:.1em}
+.day .c{background:rgba(244,231,204,.06);border:1px solid rgba(201,162,74,.35);padding:1rem 1.2rem}
+.day .c p.ev{margin:0 0 .6rem;font-size:1rem}
+.day .c .plate{margin:.4rem 0 .9rem;box-shadow:0 0 0 3px var(--qing-d)}
+.who{display:flex;flex-wrap:wrap;gap:.5rem}
+.who details{flex:1 1 220px}
+.who summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:.4rem;padding:.2rem .8rem;border:1px solid var(--gold);color:var(--gold-l);font-size:.9rem;background:rgba(14,52,54,.6)}
+.who summary::-webkit-details-marker{display:none}
+.who summary::after{content:"＋";color:var(--ju);font-size:.8rem}
+.who details[open] summary::after{content:"－"}
+.who details.fei summary{border-color:var(--lv)}
+.mingtie{margin-top:.5rem;background:#fbf1de;color:var(--ink);padding:.9rem 1rem;border:1px solid var(--zhu);font-size:.9rem;line-height:1.72;box-shadow:inset 0 0 0 3px #fbf1de,inset 0 0 0 4px rgba(168,58,38,.4);animation:fold .35s}
+.fei .mingtie{border-color:var(--lv);box-shadow:inset 0 0 0 3px #fbf1de,inset 0 0 0 4px rgba(79,154,140,.6)}
+.mingtie .a{font-size:.78rem;color:var(--ochre);margin-bottom:.3rem}
+.mingtie p{margin:.25rem 0}
+.mingtie .k{color:var(--ochre);font-size:.8rem}
+.mingtie .hn{font-family:var(--hand);font-style:italic;color:var(--c);border-top:1px dashed rgba(156,90,46,.4);margin-top:.5rem;padding-top:.4rem}
+.mingtie .hn b{font-style:normal;font-size:.72rem;opacity:.8;margin-right:.3rem}
+
+/* ═ 第六章：存物 ═ */
+.reg{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem}
+.regcard{background:#efe6d2;padding:.8rem .9rem;border:1px solid #8f7b5c;box-shadow:2px 3px 0 rgba(43,26,18,.15);font-size:.88rem}
+.regcard .no{font-size:.72rem;letter-spacing:.2em;color:var(--ochre)}
+.regcard .pm{font-size:1.02rem;font-weight:900;margin:.1rem 0 .4rem}
+.regcard dl{margin:0;display:grid;grid-template-columns:4.6em 1fr;gap:.15rem .5rem}
+.regcard dt{color:var(--qing);font-weight:600}
+.regcard dd{margin:0}
+
+/* ═ 尾聲 ═ */
+.loan{margin-top:.6rem;border:2px solid var(--qing);background:#fbf3e2}
+.loan .row{display:grid;grid-template-columns:6.5em 1fr 1.2fr;border-bottom:1px solid rgba(29,91,92,.3);font-size:.9rem}
+.loan .row>div{padding:.45rem .6rem;border-right:1px solid rgba(29,91,92,.2)}
+.loan .row>div:last-child{border-right:none}
+.loan .hd{background:var(--qing);color:var(--gold-l);font-size:.8rem;letter-spacing:.2em}
+.loan .w{font-family:var(--hand);font-size:1.02rem;color:var(--c);font-style:italic}
+.loan .rm{font-family:var(--hand);color:#6b4a2c}
+.loan .strike{text-decoration:line-through;opacity:.6}
+.unlisted{margin-top:1.6rem;display:flex;align-items:center;justify-content:flex-end;gap:1rem;color:rgba(156,90,46,.6);font-size:.82rem}
+.unlisted .seal{cursor:pointer;opacity:.85}
+.unlisted .seal.shake{animation:wig .3s}
+body.alllit .unlisted .seal{animation:sealglow 2.4s ease-in-out infinite;opacity:1}
+@keyframes sealglow{50%{box-shadow:inset 0 0 0 3px var(--zhu),inset 0 0 0 5px #fbe9d8,0 0 22px 6px rgba(236,211,138,.7)}}
+
+/* ═ 未編目 ═ */
+#hidden{display:none;width:min(760px,100%);margin:0 auto 4rem}
+#hidden.show{display:block}
+.warn{background:#1a1410;color:#e9dcc0;border:2px solid var(--gold);padding:1.8rem;text-align:center;line-height:1.9}
+.warn .g-btn{margin-top:1rem}
+#secret{display:none;background:#1a1410;color:#e9dcc0;padding:2.4rem 2.4rem 2rem;box-shadow:0 0 0 1px var(--gold),0 0 40px rgba(236,211,138,.12)}
+#secret.show{display:block;animation:fold .6s}
+#secret h2{text-align:center;color:var(--gold-l);letter-spacing:.3em;margin:.2rem 0 .2rem}
+#secret .sub{text-align:center;color:var(--gold);font-size:.85rem;margin-bottom:1.4rem}
+#secret .anyu{color:#d9b48a}
+#secret .src{font-size:.78rem;color:var(--gold);letter-spacing:.15em;margin-top:1.6rem}
+#secret h3{color:#e0a074;margin:.1rem 0 .4rem;font-size:1.1rem}
+#secret p{margin:.4rem 0}
+
+/* ═ 九盞燈 ═ */
 .lamps{position:fixed;right:16px;top:50%;transform:translateY(-50%);z-index:30;display:flex;flex-direction:column;gap:14px;opacity:0;transition:opacity .8s}
 body.in .lamps{opacity:1}
-.lamps a{position:relative;display:block;width:16px;height:22px;text-decoration:none}
+.lamps a{position:relative;display:block;width:16px;height:22px}
 .lamps i{position:absolute;inset:0;border-radius:50% 50% 45% 45%;background:#3a3020;box-shadow:inset 0 0 0 1px rgba(201,162,74,.45);transition:background .8s,box-shadow .8s}
 .lamps a.lit i{background:#ffeeb0;box-shadow:0 0 12px 4px #e8a84a,0 0 2px 1px #fff3c4 inset}
 .lamps span{position:absolute;right:26px;top:50%;transform:translateY(-50%);white-space:nowrap;font-size:.75rem;color:var(--gold-l);background:rgba(14,52,54,.92);padding:.1rem .5rem;opacity:0;transition:.2s;pointer-events:none}
 .lamps a:hover span{opacity:1}
 body.alllit .lamps a.lit i{animation:flare 3s ease-in-out infinite}
 @keyframes flare{50%{box-shadow:0 0 20px 7px #e8a84a,0 0 2px 1px #fff3c4 inset}}
-body.alllit .unlisted .seal{animation:sealglow 2.4s ease-in-out infinite;opacity:1}
-@keyframes sealglow{50%{box-shadow:inset 0 0 0 3px var(--zhu),inset 0 0 0 5px #fbe9d8,0 0 22px 6px rgba(236,211,138,.7)}}
-.lamp-done{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);z-index:40;background:rgba(14,52,54,.95);color:var(--gold-l);border:1px solid var(--gold);padding:.5rem 1.4rem;letter-spacing:.3em;opacity:0;transition:.8s;pointer-events:none}
+.lamp-done{position:fixed;left:50%;bottom:28px;transform:translate(-50%,20px);z-index:40;background:rgba(14,52,54,.95);color:var(--gold-l);border:1px solid var(--gold);padding:.5rem 1.4rem;letter-spacing:.3em;opacity:0;transition:.8s;pointer-events:none;white-space:nowrap}
 .lamp-done.show{opacity:1;transform:translate(-50%,0)}
 
-/* ═════ 卷三：卷軸改以原身圖為軸面 ═════ */
-details.scroll>summary{min-height:92px;display:flex;align-items:center;padding:.9rem 1.4rem .9rem 4.6rem;
-  background:linear-gradient(90deg,rgba(14,52,54,.95) 25%,rgba(14,52,54,.55) 60%,rgba(14,52,54,.25)),var(--bg) center 38%/cover;
-  box-shadow:inset 0 0 0 1px var(--gold);border:none;transition:filter .25s}
-details.scroll>summary:hover{filter:brightness(1.15)}
-details.scroll>summary::before,details.scroll>summary::after{content:none}
-details.scroll .hint{margin-left:auto;float:none}
-details.scroll .nm{text-shadow:0 2px 6px rgba(0,0,0,.8)}
-.scroll-grid .form{border:2px solid var(--gold);width:100%;height:auto}
+footer{text-align:center;padding:2rem 1rem 4rem;color:var(--gold-l);letter-spacing:.3em}
+footer .hook{font-size:1.25rem}
+footer small{display:block;color:var(--ci);letter-spacing:.1em;margin-top:.4rem;font-size:.78rem}
 
-@media (max-width:1000px){
+@media (max-width:900px){
   nav.toc ul{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;scrollbar-width:none}
   nav.toc ul::-webkit-scrollbar{display:none}
-  .lamps{top:auto;bottom:0;right:0;left:0;transform:none;flex-direction:row;justify-content:center;gap:12px;padding:8px 0 10px;background:rgba(14,52,54,.92);border-top:1px solid var(--gold)}
-  .lamps a{width:13px;height:18px}
-  .lamps span{display:none}
+  .lamps{top:auto;bottom:0;right:0;left:0;transform:none;flex-direction:row;justify-content:center;gap:12px;padding:8px 0 10px;background:rgba(14,52,54,.94);border-top:1px solid var(--gold)}
+  .lamps a{width:13px;height:18px}.lamps span{display:none}
   body{padding-bottom:40px}
-  .hall-head h1{font-size:1.5rem;letter-spacing:.08em}
-  .hall .memo{font-size:.98rem;margin:0 .4rem}
   .lamp-done{bottom:56px;font-size:.85rem;letter-spacing:.15em}
+  .ch{margin:3rem 0 3.6rem}
+  .ch-card{margin-top:-1.4rem;padding:1.8rem 1.3rem 1.4rem}
+  .ch-card h2{font-size:1.5rem;letter-spacing:.18em}
+  .narr p{font-size:1rem}
+  .scenes{grid-template-columns:1fr}
+  .map-wrap{grid-template-columns:1fr}
+  .son-more{padding:0 1.1rem}
+  .son-grid{grid-template-columns:1fr}
+  .son-grid .por{max-width:150px}
+  dl.spec{grid-template-columns:1fr}
+  .tl::before{left:30px}
+  .day{grid-template-columns:62px 1fr;gap:.6rem}
+  .day .d b{min-width:0;font-size:.85rem;padding:.15rem .3rem;letter-spacing:.05em}
+  .day .d small{font-size:.66rem}
+  .loan .row{grid-template-columns:1fr}
+  .loan .row>div{border-right:none}
+  #secret{padding:1.8rem 1.3rem}
+  .slip{width:auto;float:none;margin:.7rem 0}
 }
+@media (prefers-reduced-motion:reduce){*{transition-duration:.01s!important;animation-duration:.01s!important}}
 </style>
 </head>
 <body class="locked">
+
 <section id="gate" aria-label="開場">
   <div class="g-bg"></div>
   <div class="g-in">
     <div class="g-sub">九盞燈，照一扇門</div>
     <div class="g-title">龍生九子</div>
-    <div class="g-sub2">鎮瀾院・藏書樓</div>
+    <div class="g-sub2">鎮瀾院・除夕夜</div>
     <div class="g-btns"><button class="g-btn" id="enter">入　樓</button><button class="g-btn ghost" data-pv>▶ 先看 PV</button></div>
   </div>
 </section>
-<div id="pv" role="dialog" aria-label="PV"><div class="box"><div class="frame"><iframe id="pvf" title="龍生九子 PV" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><div class="row"><a href="https://youtu.be/MXtkTV5NlK0" target="_blank" rel="noopener">播不出來？到 YouTube 觀看</a><button class="g-btn" id="pvclose">關閉</button></div></div></div>
-<aside class="lamps" aria-label="九盞燈・閱讀進度"><a href="#hall" data-k="hall"><i></i><span>藏書樓</span></a><a href="#fanli" data-k="fanli"><i></i><span>凡例</span></a><a href="#juan1" data-k="juan1"><i></i><span>卷一</span></a><a href="#juan2" data-k="juan2"><i></i><span>卷二</span></a><a href="#juan3" data-k="juan3"><i></i><span>卷三</span></a><a href="#juan4" data-k="juan4"><i></i><span>卷四</span></a><a href="#juan5" data-k="juan5"><i></i><span>卷五</span></a><a href="#juan6" data-k="juan6"><i></i><span>卷六</span></a><a href="#loan" data-k="loan"><i></i><span>借閱卡</span></a></aside>
+<div id="pv" role="dialog" aria-label="PV"><div class="box"><div class="frame"><iframe id="pvf" title="龍生九子 PV" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div><div class="row"><a href="https://youtu.be/XE005UXBNCU" target="_blank" rel="noopener">播不出來？到 YouTube 觀看</a><button class="g-btn" id="pvclose">關閉</button></div></div></div>
 
-<nav class="toc" aria-label="目錄">
-  <ul>
-    <li><a href="#hall">藏書樓</a></li>
-    <li><a href="#fanli">凡例</a></li>
-    <li><a href="#juan1">卷一 典籍</a></li>
-    <li><a href="#juan2">卷二 律令</a></li>
-    <li><a href="#juan3">卷三 圖譜</a></li>
-    <li><a href="#juan4">卷四 輿圖</a></li>
-    <li><a href="#juan5">卷五 名帖</a></li>
-    <li><a href="#juan6">卷六 存物</a></li>
-    <li><a href="#loan">借閱卡</a></li>
-    <li><button class="pvbtn" data-pv>▶ PV</button></li>
-  </ul>
-</nav>
+<aside class="lamps" aria-label="九盞燈・閱讀進度"></aside>
+
+<nav class="toc" aria-label="目錄"><ul>
+  <li><a href="#prologue">序章</a></li><li><a href="#ch1">一・水漫山河</a></li><li><a href="#ch2">二・祖堂</a></li><li><a href="#ch3">三・九子</a></li><li><a href="#ch4">四・鎮瀾院</a></li><li><a href="#ch5">五・三十日</a></li><li><a href="#ch6">六・宅中九物</a></li><li><a href="#epilogue">尾聲</a></li><li><button class="pvbtn" data-pv>▶ PV</button></li>
+</ul></nav>
 <div class="huiwen"></div>
 
-<main class="book">
+<main>
 
-<!-- ════════ 藏書樓 ════════ -->
-<section class="hall" id="hall">
-  <header class="hall-head"><span class="en">CATALOGUE OF THE ZHENLAN LIBRARY</span><h1>❖ 鎮瀾院藏書樓目錄 ❖</h1><div class="by">負屭　容觀復　編次</div></header>
-  <div class="shelfpic">
+<!-- ════ 序章 ════ -->
+<section class="ch" id="prologue">
+  <div class="plate shelfpic">
     <img src="img/library.webp" alt="藏書樓書架" width="1216" height="832">
-    <a class="hot" href="#fanli" style="left:40.1%;top:18.6%;width:10.7%;height:25.6%"><i></i><span>凡例</span></a>
-    <a class="hot" href="#juan1" style="left:21.2%;top:26.7%;width:18.7%;height:17.8%"><i></i><span>卷一　典籍</span></a>
-    <a class="hot" href="#juan4" style="left:64.3%;top:20.7%;width:16.1%;height:23.8%"><i></i><span>卷四　輿圖</span></a>
-    <a class="hot" href="#juan3" style="left:36.2%;top:46.3%;width:31.3%;height:20.8%"><i></i><span>卷三　圖譜</span></a>
-    <a class="hot" href="#juan5" style="left:67.9%;top:48.7%;width:14.3%;height:18%"><i></i><span>卷五　名帖</span></a>
-    <a class="hot" href="#loan" style="left:11.5%;top:43%;width:5.4%;height:11.8%"><i></i><span>借閱卡</span></a>
-    <a class="hot" href="#juan6" style="left:63.2%;top:69.7%;width:17%;height:17.8%"><i></i><span>卷六　存物</span></a>
-    <a class="hot" href="#juan2" style="left:37.2%;top:76%;width:24.7%;height:14.4%"><i></i><span>卷二　律令</span></a>
+    <a class="hot" href="#fanli-box" data-fanli style="left:40.1%;top:18.6%;width:10.7%;height:25.6%"><i></i><span>凡例</span></a>
+    <a class="hot" href="#ch1" style="left:21.2%;top:26.7%;width:18.7%;height:17.8%"><i></i><span>一・水漫山河</span></a>
+    <a class="hot" href="#ch4" style="left:64.3%;top:20.7%;width:16.1%;height:23.8%"><i></i><span>四・鎮瀾院</span></a>
+    <a class="hot" href="#ch3" style="left:36.2%;top:46.3%;width:31.3%;height:20.8%"><i></i><span>三・九子</span></a>
+    <a class="hot" href="#ch5" style="left:67.9%;top:48.7%;width:14.3%;height:18%"><i></i><span>五・三十日</span></a>
+    <a class="hot" href="#epilogue" style="left:11.5%;top:43%;width:5.4%;height:11.8%"><i></i><span>借閱卡</span></a>
+    <a class="hot" href="#ch6" style="left:63.2%;top:69.7%;width:17%;height:17.8%"><i></i><span>六・宅中九物</span></a>
+    <a class="hot" href="#ch2" style="left:37.2%;top:76%;width:24.7%;height:14.4%"><i></i><span>二・祖堂</span></a>
     <span class="hot hid" id="hstack" role="button" tabindex="-1" aria-label="一疊舊紙" style="left:18.9%;top:71.9%;width:15.6%;height:14.9%"></span>
   </div>
-  <p class="hall-tip">點書架上的東西，就翻到那一卷。</p>
-  <div class="memo">
-    <p>親愛的，目錄只告訴你書在哪裡，不告訴你書裡寫了什麼。這是藏書樓的老規矩，也是我的。</p>
-    <p>這座樓歷代整理過好幾回，這一回輪到我。能說的，我都按卷放上架了；找不到的，多半是還沒輪到你看。</p>
-    <p>慢慢來。三十天很長，書不會跑。</p>
-    <p class="sign">——負屭　容觀復　於東院書齋，茶涼了兩次<span class="seal">觀復</span></p>
+  <p class="shelf-tip">書架上的東西都能點，點了就翻到那一章。</p>
+  <div class="ch-card">
+    <div class="ch-no">序　章</div><h2>除夕夜</h2>
+    <div class="narr">
+      <p>除夕夜，何伯把一串銅鑰匙交到你手上，說藏書樓的燈還亮著。</p>
+      <p>推門進去，書架前坐著一個白髮的男人，正在續茶。</p>
+      <p class="q">「親愛的，你來得正好。」</p>
+      <p>他沒有起身，只把一盞燈推到你面前，「明天你就要立契了。今晚，先聽我說個故事。」</p>
+    </div>
+    <details class="more" id="fanli-box"><summary>細目・藏書樓凡例</summary><div class="more-in">
+      <ol class="fl">
+        <li>藏書樓的書可以借出，以三日為限。逾期者，編者會親自上門討，順便喝茶。</li>
+        <li>樂器櫃、宗門舊檔、封碑庫之物不外借，請就地閱覽。</li>
+        <li>若干存物須經手人同意方可取閱。經手人不同意，請勿勉強；勉強也沒用。</li>
+        <li>編者的按語是私見，不作宗門正式解釋。正式解釋請問祀典師高先生，或問老七；後者會收費，收一盤棋。</li>
+        <li>借閱卡請據實填寫。霍無咎，這條是寫給你的。</li>
+      </ol>
+      <div class="slip" style="--c:#c9637f"><b>祝鳴珂</b>老八的借閱規矩比海關還多，我上次借一本漫畫被要求填三張表。</div>
+      <div class="slip l" style="--c:#a8322a;--r:2deg"><b>霍無咎</b>我有寫。</div><div class="clr"></div>
+    </div></details>
   </div>
 </section>
 
-<!-- ════════ 凡例 ════════ -->
-<section class="page fade" id="fanli">
-  <header class="sec-head"><span class="en">General Notes</span><h2>❖ 凡例 ❖</h2></header>
-  <ol class="fanli">
-    <li>本目錄分六卷：典籍、律令、圖譜、輿圖、名帖、存物。卷末附借閱卡。</li>
-    <li>藏書樓的書可以借出，以三日為限。逾期者，編者會親自上門討，順便喝茶。</li>
-    <li>樂器櫃、宗門舊檔、封碑庫之物不外借，請就地閱覽。</li>
-    <li class="entry">若干存物須經手人同意方可取閱。經手人不同意，請勿勉強；勉強也沒用。
-      <aside class="note" style="--c:#c9637f;--r:-3deg"><b>祝鳴珂</b>老八的借閱規矩比海關還多，我上次借一本漫畫被要求填三張表。</aside>
-    </li>
-    <li>目錄中的按語是編者私見，不作宗門正式解釋。正式解釋請問祀典師高先生，或問老七；後者會收費，收一盤棋。</li>
-    <li class="entry">借閱卡請據實填寫。霍無咎，這條是寫給你的。
-      <aside class="note l" style="--c:#a8322a;--r:2deg"><b>霍無咎</b>我有寫。</aside>
-    </li>
-  </ol>
-</section>
-
-<!-- ════════ 卷一 典籍 ════════ -->
-<section class="page fade" id="juan1">
-  <header class="sec-head"><span class="en">Volume I · Records</span><h2>❖ 卷一　典籍 ❖</h2><span class="sub">初代龍契與龍王</span></header>
-
-  <div class="entry">
-    <h3>《初契錄》殘本十二卷</h3>
-    <div class="biblio"><span>存：藏書樓第一架</span><span>可借閱（抄本）</span></div>
-    <p>遠古時，龍王的龍威溢出水府，大水漫過山河，田地、村落與道路都沉在水底。宗門初祖率眾求見龍王，談了一場很長的判：人族世代供奉龍王九子，龍族收斂龍威，九子鎮守這片土地。</p>
-    <p>龍王覺得九個兒子有本事，但難管，正好需要人來管；他大筆一揮，把九個全寫進了契約。這就是初代龍契。</p>
-    <p>龍契是雙向的神契：宗門以供奉養九子的神性，九子以神通護這片山河。它不是奴契，也不是婚契。</p>
-    <aside class="note" style="--c:#a8322a;--r:-2deg"><b>霍無咎</b>這頁字太多。跳過。</aside>
+<!-- ════ 第一章 ════ -->
+<section class="ch" id="ch1">
+  <figure class="plate"><video id="flood" src="img/flood.mp4" poster="img/flood-poster.webp" muted playsinline preload="metadata" width="1280" height="702"></video></figure>
+  <div class="ch-card">
+    <div class="ch-no">第 一 章</div><h2>水漫山河</h2>
+    <div class="narr">
+      <p>很久以前，龍王的龍威溢出水府，大水漫過山河。</p>
+      <p>宗門初祖帶著人去求見，談了一場很長的判：人族世代供奉，龍族收斂龍威，九個兒子留下來鎮守這片土地。</p>
+      <p>父王覺得這筆交易很划算。</p>
+      <p class="q">九個逆子，正好需要人管。</p>
+    </div>
   </div>
-  <p class="anyu">原件早已不存，現存的是數千年間一抄再抄的本子，各卷說法不太一致。當年在場的見證者還活著一位：水族的潮七公。他喝醉時講的版本最精彩，可信度另計。</p>
-
-  <h3>那筆交易，各家怎麼看</h3>
-  <ul>
-    <li>龍王：做了筆好交易，數千年後仍這麼覺得。</li>
-    <li>初祖：替人間換來了安寧。</li>
-    <li>九子：有人覺得被父親賣了，有人覺得多了個免費住處，也有人根本沒細看過契約。老七當年把條文從頭到尾審過一遍，他是例外。</li>
-  </ul>
-
-  <div class="entry">
-    <h3>《承嗣譜》<span class="meta">歷代宗主承契次第</span></h3>
-    <div class="biblio"><span>存：藏書樓第二架</span><span>可借閱</span></div>
-    <p>宗主之位的承繼，看的是血脈中與龍契的共鳴，不看年齡、性別、財產或長幼。歷任宗主可以預先培養繼任者，但最後由祖堂的龍契石壇確認。宗主出缺時，石壇會在歲末指向下一位。</p>
-    <p>宗主可以決定的：祭儀與供奉的安排、宗門公共財產與重大修繕、訪客與開放場所、員工的重大任免、是否擇主。</p>
-    <p>宗主不能決定的：九子的私產、職業與情人；九子是否愛上自己；九子的私人行動；以及無視神契處置鎮守之地。</p>
-    <p>宗主是管理者與承契者，不是九子的主人。</p>
-    <aside class="note l" style="--c:#c9637f;--r:3deg"><b>祝鳴珂</b>「九子是否愛上自己」不歸宗主決定——到底是哪一代宗主問過這個？好想知道。</aside>
-  </div>
-
-  <div class="entry">
-    <h3>《水府來箋》一函</h3>
-    <div class="biblio"><span>存：藏書樓第一架另匣</span><span>不外借</span></div>
-    <p>龍王是九子的父親、初代龍契的訂立者，龍威遠在九子之上，能干涉廣大的水域與山河靈脈。他把兒子們交給宗門，一半是停息水患的交易，一半是想讓他們學著跟凡人相處。</p>
-    <p>他平時不管宗門，不替兒子收拾麻煩，也不當家務爭執的裁判，從不親自出場。偶爾透過水族使者或潮七公一類的舊交送消息；春節可能送來一箱海底古物、幾株深海靈草，或一封只有九子看得懂的短箋。</p>
-    <aside class="note" style="--c:#b02a37;--r:-3deg"><b>殷照夜</b>去年那箱海底古物我拿去店裡當擺設，客人都說很有品味。父王不必知道。</aside>
-  </div>
-  <p class="anyu">這一函收的是歷年短箋，內容多半是「知道了」「別鬧」與天氣。最長的一封有九個字，我們九個各讀出了不同的意思。</p>
-</section>
-
-<!-- ════════ 卷二 律令 ════════ -->
-<section class="page fade" id="juan2">
-  <header class="sec-head"><span class="en">Volume II · Ordinances</span><h2>❖ 卷二　律令 ❖</h2><span class="sub">龍契細則</span></header>
-  <p style="text-align:center;color:var(--ochre)">祀典師高先生手抄，原樣夾存。</p>
-
-  <div class="jiaye">
-    <h3 class="jt">龍契祭典記</h3>
-    <div class="jt-by">祀典師　高仲儀　謹錄</div>
-    <p>謹按歷代祀典，錄龍契諸儀於後，以備新任宗主覽閱。文辭從舊，宗主見諒。</p>
-
-    <h4>一　石壇指向</h4>
-    <p>宗主之位出缺，祖堂龍契石壇於歲末顯紋，指向承繼之人。宗門於歲首前將其請回鎮瀾院，正月初一正式接掌。</p>
-
-    <h4>二　歲首共居</h4>
-    <p>新宗主繼位，九子須全數返回鎮瀾院，與宗主同住三十日，以正月初一為第一日。白日九子可自由工作、外出、會友，晚間原則上回宅。無論擇主與否，皆十人同居。</p>
-    <p>宗主若久離香江，儀程暫停，已滿之日不作廢。龍契不以囚禁或傷害強行履約。</p>
-
-    <h4>三　擇主</h4>
-    <p>宗主可擇一位龍子為本代主奉。其儀：宗主於九龍祖堂，為所擇之龍子上香，於龍契之上落硃砂筆，由祀典師唱名。三十日內，宗主擇定之日即可行儀，不必拘於初一。</p>
-    <p>主奉負責主要陪伴，優先承接宗主個人之供奉；其餘八位照常同住、照常起居，亦得與宗主各自往來。擇主所定者，供奉之序與輕重而已：不定去留，不予主奉獨佔、婚配或親近之權。擇與不擇、擇誰，唯宗主自決，旁人不得代擇，宗族長輩亦然。</p>
-
-    <h4>四　共契</h4>
-    <p>宗主未擇主者，即為九子共契，九位共承陪伴之責。誰得閒、誰正要出門，皆可能請宗主同行。</p>
-
-    <h4>五　供奉</h4>
-    <p>宗主承契之後，身有靈力，能與九子相應。靈力之傳遞，可經焚香、祝禱、樂音、儀式、陪伴，以及雙方自願之親近（此條歷代祀典師皆略過不講，本人亦然）。親近非履約之必要，亦不保證勝於祭拜。</p>
-    <p>主奉得較多個人供奉；其餘八位由祖堂共祭取得基本靈力。靈力用以維持龍契、滋養神性、支應鎮守山河之耗。九子不因數日缺供而衰弱，宗主不必驚慌。</p>
-    <p>九子各有所好，祀典未載，宜問本尊。</p>
-
-    <h4>六　約束</h4>
-    <ul>
-      <li>九子不得以龍威危害受庇護之地域。</li>
-      <li>九子不得傷害宗主、強奪供奉。</li>
-      <li>宗主不得以主奉之名，令九子違背神性。</li>
-      <li>宗主不得支配九子之私產、職業、情人與私事。</li>
-    </ul>
-
-    <h4>七　違契</h4>
-    <p>違契之時，龍契先示警：靈紋異常、供奉失衡、神壇鳴響。九子故意毀壞所守靈脈者，相關神通受限，須自行補救。宗主一時失誤，補行祭儀即可，不致受傷。</p>
-
-    <h4>八　第三十日</h4>
-    <p>第三十日，祖堂行承契完成之儀，儀簡，不必盛服。儀畢，同居之約解除，九子去留各隨其意。宗主仍為宗主；三十日乃承契之始，非其終。</p>
-
-    <h4>附　歲首三十日祭禮時序</h4>
-    <ul>
-      <li>初一：歲首祭，宗主初次主祭。</li>
-      <li>初二：宗族團拜，盆菜宴。</li>
-      <li>初三：赤口。易生口角，訪客宜少，然歷年皆有客。</li>
-      <li>初七：人日，全宅共慶生辰。</li>
-      <li>十五：元宵家宴。</li>
-      <li>第三十日：承契完成儀。若正月僅二十九日，落在二月初一。</li>
-    </ul>
-
-    <p class="colophon">右錄八事，皆祀典所載。<br>歲次臘月　高仲儀　謹錄<span class="seal">仲儀</span></p>
-  </div>
-  <div class="entry" style="margin-top:2rem;min-height:120px">
-    <p style="color:var(--ochre);font-size:.9rem;text-align:right">（祭典記背面有茶漬一圈。）</p>
-    <aside class="note l" style="--c:#7a6230;--r:-2deg"><b>梁玄度</b>祭典記上寫的那種香太衝，用老山檀。我讓人送了兩盒到祖堂。</aside>
+  <figure class="plate" style="margin-top:2.6rem"><img src="img/ch-pact.webp" alt="初祖立契" loading="lazy" width="1280" height="704"><figcaption><b>初祖立契</b>人族世代供奉，換龍族收斂龍威、九子鎮守此地。</figcaption></figure>
+  <div class="ch-card" style="margin-top:1.2rem">
+    <details class="more" style="margin-top:0;border-top:none"><summary>細目・初契錄、承嗣譜與龍王</summary><div class="more-in">
+      <h3>《初契錄》殘本十二卷</h3><div class="biblio"><span>存：藏書樓第一架</span><span>可借閱（抄本）</span></div>
+      <p>龍契是雙向的神契：宗門以供奉養九子的神性，九子以神通護這片山河。它不是奴契，也不是婚契。</p>
+      <p class="anyu">原件早已不存，現存的是數千年間一抄再抄的本子，各卷說法不太一致。當年在場的見證者還活著一位：水族的潮七公。他喝醉時講的版本最精彩，可信度另計。</p>
+      <h3>那筆交易，各家怎麼看</h3>
+      <ul><li>龍王：做了筆好交易，數千年後仍這麼覺得。</li><li>初祖：替人間換來了安寧。</li><li>九子：有人覺得被父親賣了，有人覺得多了個免費住處，也有人根本沒細看過契約。老七當年把條文從頭到尾審過一遍，他是例外。</li></ul>
+      <div class="slip" style="--c:#a8322a"><b>霍無咎</b>這頁字太多。跳過。</div><div class="clr"></div>
+      <h3>《承嗣譜》</h3><div class="biblio"><span>存：藏書樓第二架</span><span>可借閱</span></div>
+      <p>宗主之位的承繼，看的是血脈中與龍契的共鳴，不看年齡、性別、財產或長幼。宗主出缺時，祖堂的龍契石壇會在歲末指向下一位。</p>
+      <p>宗主可以決定的：祭儀與供奉的安排、宗門公共財產與重大修繕、訪客與開放場所、員工的重大任免、是否擇主。</p>
+      <p>宗主不能決定的：九子的私產、職業與情人；九子是否愛上自己；九子的私人行動；以及無視神契處置鎮守之地。</p>
+      <p>宗主是管理者與承契者，不是九子的主人。</p>
+      <div class="slip" style="--c:#c9637f;--r:3deg"><b>祝鳴珂</b>「九子是否愛上自己」不歸宗主決定——到底是哪一代宗主問過這個？好想知道。</div><div class="clr"></div>
+      <h3>龍王與《水府來箋》</h3><div class="biblio"><span>存：第一架另匣</span><span>不外借</span></div>
+      <p>龍王是九子的父親、初代龍契的訂立者，龍威遠在九子之上。他把兒子們交給宗門，一半是停息水患的交易，一半是想讓他們學著跟凡人相處。</p>
+      <p>他平時不管宗門，不替兒子收拾麻煩，也不當家務爭執的裁判，從不親自出場。春節可能透過水族使者送來一箱海底古物、幾株深海靈草，或一封只有九子看得懂的短箋。</p>
+      <p class="anyu">這一函收的是歷年短箋，內容多半是「知道了」「別鬧」與天氣。最長的一封有九個字，我們九個各讀出了不同的意思。</p>
+      <div class="slip l" style="--c:#b02a37;--r:2deg"><b>殷照夜</b>去年那箱海底古物我拿去店裡當擺設，客人都說很有品味。父王不必知道。</div><div class="clr"></div>
+    </div></details>
   </div>
 </section>
 
-<!-- ════════ 卷三 圖譜 ════════ -->
-<section class="page fade" id="juan3">
-  <header class="sec-head"><span class="en">Volume III · Bestiary</span><h2>❖ 卷三　圖譜 ❖</h2><span class="sub">非人社會與九子原身</span></header>
-
-  <div class="entry">
-    <h3>序：非人</h3>
-    <p>現代仍有神獸、山鬼、狐妖、精怪等非人族類，大多數普通人不知道他們存在。非人之間沒有統一的政府，靠各地舊約、地盤、血脈與人情維持秩序；他們在人間經商、戀愛、交友，不全是好人，也不全是壞人，年紀越大，倫理觀越不像人。</p>
-    <p><b>遮蔽術。</b>九子在外收起角、尾、鱗，偶爾露出一點，微弱的遮蔽術會讓普通人當成飾物、造型或光影。遮蔽不控制記憶，對拍攝設備與強烈的神通未必有效。</p>
-    <p><b>現代身分。</b>九子都有合法的身分與工作紀錄，長生靠長週期更換身分、交接產業處理。長期認識他們的人類，多半只知道他們來自同一個古老家族。</p>
-    <p><b>鎮瀾院的位置。</b>在非人世界裡，鎮瀾院是受龍契保護的古老宗門祖地，不是非人社會的首都。非人訪客進宅須通報身分與來意，由何伯登記姓名、來歷與禮物；任何訪客不得在宅內施展大規模幻術、鬥法或破壞封印，九子的朋友也一樣。</p>
-    <aside class="note" style="--c:#2f5079;--r:2deg"><b>顧昭衡</b>「不全是好人，也不全是壞人」——老八，這句適用範圍請寫清楚。</aside>
-  </div>
-
-  <img class="group-img" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim/8436c188-439e-45e4-b0c7-cf9e3c182f29?v=85bb5a" alt="九子群像">
-  <p class="caption">九子同框的罕見影像，攝於某年元宵。拍攝者事後換了三支手機。</p>
-
-  <p>下列體長皆為收斂原身時的尺寸，施展神通時靈相可再擴大。九子在祖堂與後山不宜完全化形；上一次有人這麼做，祖堂換了一根樑。</p>
-
-  <!-- 01 -->
-  <details class="scroll" style="--c:#3f8f84">
-    <summary style="--bg:url(img/F01.webp)"><span class="num">壹</span><span class="nm">囚牛　晏清徵<small>老大・御音</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/371b454a-23ca-443e-9b7d-fa2d29fcc753?v=adf7ff" alt="晏清徵">
-        <dl class="spec">
-          <dt>原身</dt><dd>深青綠長身龍獸，短角，頸側有細密的感音鱗。</dd>
-          <dt>收斂體長</dt><dd>約 8–12 米</dd>
-          <dt>本源神通</dt><dd>御音、聽息。樂音能安定神魂、化作結界；能從細微聲響辨認生命氣息。</dd>
-          <dt>神通邊界</dt><dd>能平息躁動，不能憑樂音永久控制意志。</dd>
-          <dt>原身習性</dt><dd>喜歡會共鳴的木材與安靜水域，能長時間聆聽大地與生命的聲響。</dd>
-          <dt>偏好供奉</dt><dd>合奏；為他焚一爐清香。</dd>
-        </dl>
-        <img class="form" src="img/F01.webp" alt="F01 囚牛原身" loading="lazy" width="1216" height="832">
-      </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>祝鳴珂一聲龍鳴震毀了他一張古琴，兩人在東院打了一架。琴室現在那面隔音牆，是那一架之後補的。</li>
-        <li>用岑歸岫從山裡帶回的木材做過幾枚風鈴，掛在不同的山頭；岑歸岫至今沒全拆。</li>
-        <li>某代宗主五音不全，每年元宵堅持要跟他合奏。他陪了三十一年，一次也沒離席。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#c9637f"><b>祝鳴珂</b>大哥原身的時候耳朵比本人還挑，我在三條街外哼歌他都知道走音。</div>
+<!-- ════ 第二章 ════ -->
+<section class="ch" id="ch2">
+  <figure class="plate"><img src="img/ch-zutang.webp" alt="九龍祖堂" loading="lazy" width="1280" height="704"></figure>
+  <div class="ch-card">
+    <div class="ch-no">第 二 章</div><h2>祖堂</h2>
+    <div class="narr">
+      <p>明天一早，你會站在這裡。</p>
+      <p>堂上是九尊神龕，堂下壓著初代龍契石壇。高先生會念一段很長的祝文，然後問你要不要擇主：選一位當主奉，或者誰也不選。</p>
+      <p class="q">「親愛的，不管你選不選，接下來三十天，我們九個都住在這座宅子裡。」</p>
     </div>
-  </details>
-
-  <!-- 02 -->
-  <details class="scroll" style="--c:#a8322a">
-    <summary style="--bg:url(img/F02.webp)"><span class="num">貳</span><span class="nm">睚眥　霍無咎<small>老二・兵煞</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/6ae2e121-f3e1-4869-a72c-1ab0cf005d81?v=869b97" alt="霍無咎">
-        <dl class="spec">
-          <dt>原身</dt><dd>似狼的龍形猛獸，赤瞳利齒，背生刃狀鱗脊。</dd>
-          <dt>收斂體長</dt><dd>約 6–9 米</dd>
-          <dt>本源神通</dt><dd>兵煞、御刃。戰意越烈，龍威越強。</dd>
-          <dt>神通邊界</dt><dd>能御刃殺伐，不代表所有敵人都能一擊而勝。</dd>
-          <dt>原身習性</dt><dd>領地意識強，對兵刃、鮮血與戰意敏感。</dd>
-          <dt>偏好供奉</dt><dd>陪他練一場；看他比賽。</dd>
-        </dl>
-        <img class="form" src="img/F02.webp" alt="F02 睚眥原身" loading="lazy" width="1216" height="832">
+    <details class="more"><summary>細目・龍契祭典記（祀典師手抄）</summary><div class="more-in">
+      <div class="jidian">
+        <div class="jt">龍契祭典記</div><div class="jb">祀典師　高仲儀　謹錄</div>
+        <p>謹按歷代祀典，錄龍契諸儀於後，以備新任宗主覽閱。文辭從舊，宗主見諒。</p>
+        <h4>一　石壇指向</h4><p>宗主之位出缺，祖堂龍契石壇於歲末顯紋，指向承繼之人。宗門於歲首前將其請回鎮瀾院，正月初一正式接掌。</p>
+        <h4>二　歲首共居</h4><p>新宗主繼位，九子須全數返回鎮瀾院，與宗主同住三十日，以正月初一為第一日。白日九子可自由工作、外出、會友，晚間原則上回宅。無論擇主與否，皆十人同居。宗主若久離香江，儀程暫停，已滿之日不作廢。龍契不以囚禁或傷害強行履約。</p>
+        <h4>三　擇主</h4><p>宗主可擇一位龍子為本代主奉。其儀：宗主於九龍祖堂，為所擇之龍子上香，於龍契之上落硃砂筆，由祀典師唱名。三十日內，宗主擇定之日即可行儀，不必拘於初一。</p><p>主奉負責主要陪伴，優先承接宗主個人之供奉；其餘八位照常同住、照常起居，亦得與宗主各自往來。擇主所定者，供奉之序與輕重而已：不定去留，不予主奉獨佔、婚配或親近之權。擇與不擇、擇誰，唯宗主自決，旁人不得代擇，宗族長輩亦然。</p>
+        <h4>四　共契</h4><p>宗主未擇主者，即為九子共契，九位共承陪伴之責。誰得閒、誰正要出門，皆可能請宗主同行。</p>
+        <h4>五　供奉</h4><p>宗主承契之後，身有靈力，能與九子相應。靈力之傳遞，可經焚香、祝禱、樂音、儀式、陪伴，以及雙方自願之親近（此條歷代祀典師皆略過不講，本人亦然）。親近非履約之必要，亦不保證勝於祭拜。主奉得較多個人供奉；其餘八位由祖堂共祭取得基本靈力。九子不因數日缺供而衰弱，宗主不必驚慌。九子各有所好，祀典未載，宜問本尊。</p>
+        <h4>六　約束</h4><ul><li>九子不得以龍威危害受庇護之地域。</li><li>九子不得傷害宗主、強奪供奉。</li><li>宗主不得以主奉之名，令九子違背神性。</li><li>宗主不得支配九子之私產、職業、情人與私事。</li></ul>
+        <h4>七　違契</h4><p>違契之時，龍契先示警：靈紋異常、供奉失衡、神壇鳴響。九子故意毀壞所守靈脈者，相關神通受限，須自行補救。宗主一時失誤，補行祭儀即可，不致受傷。</p>
+        <h4>八　第三十日</h4><p>第三十日，祖堂行承契完成之儀，儀簡，不必盛服。儀畢，同居之約解除，九子去留各隨其意。宗主仍為宗主；三十日乃承契之始，非其終。</p>
+        <p class="colo">右錄八事，皆祀典所載。<br>歲次臘月　高仲儀　謹錄<span class="seal">仲儀</span></p>
       </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>古代一場戰事裡和白懷石互救過性命，兩人從不提起。</li>
-        <li>和顧昭衡打過不只一次，最近一次是為了停車位。</li>
-        <li>羅啟明的拳館開張那年，他打贏了館裡所有人，然後被羅啟明罰掃了一個月的地。他真的掃了。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#5e9c90"><b>白懷石</b>……他原身會咬沙發。</div>
-    </div>
-  </details>
-
-  <!-- 03 -->
-  <details class="scroll" style="--c:#8f6a3c">
-    <summary style="--bg:url(img/F03.webp)"><span class="num">參</span><span class="nm">嘲風　岑歸岫<small>老三・御風</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/1970d6c7-7d5c-4eae-882e-5b4675e785ac?v=13a047" alt="岑歸岫">
-        <dl class="spec">
-          <dt>原身</dt><dd>修長的山崖龍獸，棕角，鉤爪，背有御風的鱗膜。</dd>
-          <dt>收斂體長</dt><dd>約 7–10 米</dd>
-          <dt>本源神通</dt><dd>御風、望氣。擅長在高處察覺災厄的徵兆。</dd>
-          <dt>神通邊界</dt><dd>能察覺災厄徵兆，不能看見所有未來。</dd>
-          <dt>原身習性</dt><dd>喜歡高處、風口與懸崖，休息時也看著遠方。</dd>
-          <dt>偏好供奉</dt><dd>一起在高處看日出、靜坐。</dd>
-        </dl>
-        <img class="form" src="img/F03.webp" alt="F03 嘲風原身" loading="lazy" width="1216" height="832">
-      </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>和山鬼應青蘿認識很久，幾十年不見，見面照樣互嫌。</li>
-        <li>晉安替祖宅裝的智慧門禁三天壞了七次。他沒承認，也沒否認。</li>
-        <li>有一回出門四十年沒消息，回來時提著一袋高山茶，問大家吃過飯沒有。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#3f8f84"><b>晏清徵</b>風鈴可以留著。上面那句不用寫。</div>
-    </div>
-  </details>
-
-  <!-- 04 -->
-  <details class="scroll" style="--c:#c9637f">
-    <summary style="--bg:url(img/F04.webp)"><span class="num">肆</span><span class="nm">蒲牢　祝鳴珂<small>老四・龍鳴</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/8ee3264b-99b1-439a-a3fa-fdcbdd563c93?v=fb1589" alt="祝鳴珂">
-        <dl class="spec">
-          <dt>原身</dt><dd>黑尾粉鱗的龍形異獸，胸喉發達，體型緊實。</dd>
-          <dt>收斂體長</dt><dd>約 5–7 米</dd>
-          <dt>本源神通</dt><dd>龍鳴、震魂。聲音能穿透結界、震碎物體、傳至極遠。</dd>
-          <dt>神通邊界</dt><dd>龍鳴威力驚人，但要精確控制，得刻意收斂。</dd>
-          <dt>原身習性</dt><dd>對聲音與震動極敏銳，興奮時尾巴擺個不停。</dd>
-          <dt>偏好供奉</dt><dd>陪他試玩新品，一起玩到很晚。</dd>
-        </dl>
-        <img class="form" src="img/F04.webp" alt="F04 蒲牢原身" loading="lazy" width="1216" height="832">
-      </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>和殷照夜聯手燒掉過半座臨時行宮。宗門從此規定兩人未經許可不得共同規劃大型煙火，兩人都覺得這條沒必要。</li>
-        <li>三叔公年輕時訓斥過他，結果被戲弄了整個新年。</li>
-        <li>白懷石是他的玩具耐久度測試員。測試紀錄：玩具零勝。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#b02a37"><b>殷照夜</b>那座行宮本來就很醜。</div>
-    </div>
-  </details>
-
-  <!-- 05 -->
-  <details class="scroll" style="--c:#7a6230">
-    <summary style="--bg:url(img/F05.webp)"><span class="num">伍</span><span class="nm">狻猊　梁玄度<small>老五・御煙</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/dc3c7b51-2a16-4862-bb93-bb69f4fe18ef?v=12622b" alt="梁玄度">
-        <dl class="spec">
-          <dt>原身</dt><dd>黑金鬃毛的獅形龍獸，身軀厚重，口鼻能吐香煙。</dd>
-          <dt>收斂體長</dt><dd>約 9–13 米</dd>
-          <dt>本源神通</dt><dd>御煙、鎮邪。煙霧能驅邪、遮蔽行蹤、安定靈場。</dd>
-          <dt>神通邊界</dt><dd>能以煙霧鎮邪，不能憑香煙操縱所有生命。</dd>
-          <dt>原身習性</dt><dd>喜歡溫暖、香火與舒適，靜坐多久都不覺得無聊。</dd>
-          <dt>偏好供奉</dt><dd>一同用飯；在香室焚香。</dd>
-        </dl>
-        <img class="form" src="img/F05.webp" alt="F05 狻猊原身" loading="lazy" width="1216" height="832">
-      </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>族叔志謙提議賣掉一塊閒置地，被他請去喝了四小時的茶，出來後撤回提案，至今不說原因。</li>
-        <li>殷照夜早年的產業受過他的資金與人脈支持，兩人都不提。</li>
-        <li>和鄺美蓮為廚房換茶葉的事吵過。鄺美蓮贏了。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#cf8233"><b>容觀復</b>五哥家的飯是全香港最好的，這句是交換條件。</div>
-    </div>
-  </details>
-
-  <!-- 06 -->
-  <details class="scroll" style="--c:#5e9c90">
-    <summary style="--bg:url(img/F06.webp)"><span class="num">陸</span><span class="nm">贔屭　白懷石<small>老六・負山</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/56b6bc56-fa5e-4ce7-9e11-ddc8ac3b0e51?v=d6027e" alt="白懷石">
-        <dl class="spec">
-          <dt>原身</dt><dd>巨大的龜形龍獸，龍首重甲，四肢厚重。人形身上的鱗紋如日本傳統刺青般延展。</dd>
-          <dt>收斂體長</dt><dd>約 18–35 米</dd>
-          <dt>本源神通</dt><dd>負山、鎮地。能穩固地脈，龍甲堅不可摧。</dd>
-          <dt>神通邊界</dt><dd>能鎮地脈，但不能無代價地同時背負所有崩裂之地。</dd>
-          <dt>原身習性</dt><dd>喜歡穩固的地面、日光與安靜，能進入極長的休眠。</dd>
-          <dt>偏好供奉</dt><dd>陪他曬太陽；安靜吃一頓飯。</dd>
-        </dl>
-        <img class="form" src="img/F06.webp" alt="F06 贔屭原身" loading="lazy" width="1216" height="832">
-      </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>二姑婆小時候坐過他的肩膀。七十年後他還是那張臉，她照樣問：「懷石，今日食咗飯未呀？」</li>
-        <li>兄弟搬家，第一個想到的都是他。</li>
-        <li>石獅精石二六百年前第一次見到他，以為是一座山，對著拜了三拜。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#5e9c90"><b>白懷石</b>……食咗。</div>
-    </div>
-  </details>
-
-  <!-- 07 -->
-  <details class="scroll" style="--c:#2f5079">
-    <summary style="--bg:url(img/F07.webp)"><span class="num">柒</span><span class="nm">狴犴　顧昭衡<small>老七・明辨</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/b2b09c64-9dcf-4141-8638-8b95c8884d6e?v=fbe37a" alt="顧昭衡">
-        <dl class="spec">
-          <dt>原身</dt><dd>深藍黑紋的虎形龍獸，爪牙鋒利，藍色神瞳。</dd>
-          <dt>收斂體長</dt><dd>約 7–11 米</dd>
-          <dt>本源神通</dt><dd>明辨、神判。能感知誓言與契約的真偽，施以禁錮封印。</dd>
-          <dt>神通邊界</dt><dd>能辨契約真偽，不能讀心。</dd>
-          <dt>原身習性</dt><dd>對異常氣息與違誓者敏銳，習慣觀察他物的動作。</dd>
-          <dt>偏好供奉</dt><dd>正式祭儀；一盤棋。</dd>
-        </dl>
-        <img class="form" src="img/F07.webp" alt="F07 狴犴原身" loading="lazy" width="1216" height="832">
-      </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>當年親自把初代龍契的條文從頭審過一遍，是九子裡唯一細讀過的人。</li>
-        <li>曾深愛過一位契約主。他不忌諱談那段感情。</li>
-        <li>和容觀復為一個詞辯論過三小時，最後兩人都改用了第三個詞。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#a8322a"><b>霍無咎</b>停車位是我的。</div>
-    </div>
-  </details>
-
-  <!-- 08 -->
-  <details class="scroll" style="--c:#cf8233">
-    <summary style="--bg:url(img/F08.webp)"><span class="num">捌</span><span class="nm">負屭　容觀復<small>老八・通文</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/972078cf-22f0-4117-8099-2dadd3c20ecf?v=4b9986" alt="容觀復">
-        <dl class="spec">
-          <dt>原身</dt><dd>白鱗長身盤龍，雙角微卷，鱗片帶天然的碑文紋路。</dd>
-          <dt>收斂體長</dt><dd>約 9–14 米</dd>
-          <dt>本源神通</dt><dd>通文、銘靈。能解讀神文與封印。</dd>
-          <dt>神通邊界</dt><dd>能讀神文與殘留記錄，但不知道所有歷史；記錄也可能不完整，或遭篡改。</dd>
-          <dt>原身習性</dt><dd>喜歡盤繞碑石、古樹與高大建築，能感應刻寫過的神文。</dd>
-          <dt>偏好供奉</dt><dd>聽你講故事；親手寫的祝禱文。</dd>
-        </dl>
-        <img class="form" src="img/F08.webp" alt="F08 負屭原身" loading="lazy" width="1216" height="832">
-      </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>把兄弟們幾百年前的蠢事改了名字寫進小說。柳硯秋為其中一本的版權跟他吵到現在。</li>
-        <li>最長一次拖稿十一個月，交稿時附了一盒蛋撻給許靜宜。</li>
-        <li>常去梁玄度家蹭飯。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#cf8233"><b>容觀復</b>自己的卷軸由自己編，親愛的，這叫利益迴避的反面。</div>
-    </div>
-  </details>
-
-  <!-- 09 -->
-  <details class="scroll" style="--c:#b02a37">
-    <summary style="--bg:url(img/F09.webp)"><span class="num">玖</span><span class="nm">螭吻　殷照夜<small>老九・吞火</small></span><span class="hint"></span></summary>
-    <div class="scroll-body">
-      <div class="scroll-grid">
-        <img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=800/charim-standard/29cbf814-7b70-4a07-b3ca-3db93f3c8bdc?v=d6fa6a" alt="殷照夜">
-        <dl class="spec">
-          <dt>原身</dt><dd>魚尾龍身、背有鰭脊的龍獸，巨口能吞靈火與災氣。</dd>
-          <dt>收斂體長</dt><dd>約 10–16 米</dd>
-          <dt>本源神通</dt><dd>吞火、消災。能吞噬靈火與部分災厄之氣。</dd>
-          <dt>神通邊界</dt><dd>能吞火消災，不能吞噬世間一切力量。</dd>
-          <dt>原身習性</dt><dd>喜歡水域、屋脊與溫熱的環境，對火焰與熱源有特殊感知。</dd>
-          <dt>偏好供奉</dt><dd>陪他喝一杯；親密接觸。</dd>
-        </dl>
-        <img class="form" src="img/F09.webp" alt="F09 螭吻原身" loading="lazy" width="1216" height="832">
-      </div>
-      <div class="jiuzhang"><h5>舊帳</h5><ul>
-        <li>燒行宮那次，他是另一個。</li>
-        <li>上世紀七〇年代在灣仔開過第一家店，招牌是祝鳴珂設計的，亮到被鄰居投訴。</li>
-        <li>梁玄度不許他把香水味帶進茶室，他每次都帶。</li>
-      </ul></div>
-      <div class="scroll-note" style="--c2:#7a6230"><b>梁玄度</b>不是每次。是每一次。</div>
-    </div>
-  </details>
-</section>
-
-<!-- ════════ 卷四 輿圖 ════════ -->
-<section class="page fade" id="juan4">
-  <header class="sec-head"><span class="en">Volume IV · Atlas</span><h2>❖ 卷四　輿圖 ❖</h2><span class="sub">鎮瀾院全圖</span></header>
-
-  <div class="entry">
-    <p>鎮瀾院位於新界元朗錦田偏僻的山緣，一條私人山路通往錦田市區，周邊是圍村與宗祠林立的傳統村落。外表古老，住起來很現代：</p>
-    <ul>
-      <li>初代龍契留下地下的龍契石壇、九子神位與鎮水石基；</li>
-      <li>古代留下祖堂、碑廊、祀典殿與藏書樓；</li>
-      <li>明清至近代是青磚主樓、天井、雕花窗與院牆；</li>
-      <li>二十世紀加了廚房、僕役宿舍與水電；</li>
-      <li>現代加了私人套房、電梯、空調、車庫、網路與保全。</li>
-    </ul>
-    <p>部分空間不合普通建築原理。有一條走廊，量三次長度都不一樣。</p>
-    <aside class="note l" style="--c:#5e9c90;--r:-2deg"><b>白懷石</b>西院的樓板是我換的。兩次。</aside>
-  </div>
-
-  <div class="map-wrap">
-    <svg viewBox="0 0 600 760" role="img" aria-label="鎮瀾院平面圖">
-      <defs>
-        <pattern id="hill" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 12 Q6 2 12 12 T24 12" fill="none" stroke="#4f9a8c" stroke-width="1" opacity=".55"/></pattern>
-      </defs>
-      <!-- 外框 -->
-      <rect x="8" y="8" width="584" height="744" fill="none" stroke="#c9a24a" stroke-width="3"/>
-      <rect x="16" y="16" width="568" height="728" fill="none" stroke="#1d5b5c" stroke-width="1"/>
-      <text x="560" y="44" font-size="14" fill="#9c5a2e" text-anchor="middle" font-family="serif">北</text>
-      <path d="M560 50 L560 80" stroke="#9c5a2e" stroke-width="1.5"/>
-      <!-- 院牆 -->
-      <rect x="40" y="178" width="520" height="520" fill="none" stroke="#9c5a2e" stroke-width="2" stroke-dasharray="7 4"/>
-
-      <g class="zone" data-k="hou"><path d="M30 165 Q120 40 220 110 Q300 30 380 100 Q470 30 570 165 Z" style="fill:url(#hill)"/><path d="M30 165 Q120 40 220 110 Q300 30 380 100 Q470 30 570 165 Z"/><circle cx="300" cy="92" r="16"/><text x="300" y="140">後山・觀風台</text></g>
-
-      <g class="zone" data-k="bei"><rect x="56" y="196" width="140" height="110"/><text x="126" y="246">碑廊</text><text x="126" y="268">藏書樓</text><text class="s" x="126" y="290">封碑庫在地下</text></g>
-      <g class="zone" data-k="zu"><rect x="216" y="196" width="168" height="110"/><text x="300" y="248">九龍祖堂</text><text class="s" x="300" y="272">龍契石壇在堂下</text></g>
-      <g class="zone" data-k="shen"><rect x="404" y="196" width="140" height="110"/><text x="474" y="248">舊審堂</text><text class="s" x="474" y="272">已封閉</text></g>
-
-      <g class="zone" data-k="xi"><rect x="56" y="326" width="140" height="190"/><text x="126" y="412">西院</text><text class="s" x="126" y="434">練武場・娛樂室</text></g>
-      <g class="zone" data-k="zhu"><rect x="216" y="326" width="168" height="190"/><rect x="262" y="380" width="76" height="76" style="fill:rgba(169,211,197,.5)"/><text x="300" y="356">中央主樓</text><text class="s" x="300" y="422">天井</text><text class="s" x="300" y="496">大餐廳</text></g>
-      <g class="zone" data-k="dong"><rect x="404" y="326" width="140" height="190"/><text x="474" y="412">東院</text><text class="s" x="474" y="434">琴室・書齋・茶室</text></g>
-
-      <g class="zone" data-k="hq"><rect x="56" y="536" width="140" height="70"/><text x="126" y="576">後勤區</text></g>
-      <g class="zone" data-k="ting"><rect x="216" y="536" width="168" height="70"/><text x="300" y="577">正廳</text></g>
-      <g class="zone" data-k="chu"><rect x="404" y="536" width="140" height="70"/><text x="474" y="576">廚房</text></g>
-
-      <g class="zone" data-k="men"><rect x="150" y="626" width="300" height="60"/><text x="300" y="662">前庭與門樓</text></g>
-      <path d="M300 686 L300 740" stroke="#9c5a2e" stroke-width="2" stroke-dasharray="4 4"/>
-      <text x="300" y="736" font-size="11" fill="#9c5a2e" text-anchor="middle" font-family="serif">私人山路　往錦田</text>
-    </svg>
-
-    <div class="map-panel" id="mapPanel" aria-live="polite"></div>
-  </div>
-  <p class="map-tip">點圖上任一區域查看說明。</p>
-
-  <div class="entry">
-    <h3>宅內規矩</h3>
-    <ul>
-      <li>私人房間須經同意才能進入。</li>
-      <li>祖堂是公共祭祀場所，私人供奉也可在各自空間進行。</li>
-      <li>後山不動土，但可以散步。</li>
-      <li>三十日內以老宅為居所，白天可自由出入。</li>
-      <li>十人的住房與擇主無關，主奉不會因為被選中就搬進宗主房。</li>
-    </ul>
-    <aside class="note" style="--c:#8f6a3c;--r:3deg"><b>岑歸岫</b>觀風台沒有門，不用找鑰匙。上來記得帶水。</aside>
+      <div class="slip" style="--c:#7a6230"><b>梁玄度</b>祭典記上寫的那種香太衝，用老山檀。我讓人送了兩盒到祖堂。</div><div class="clr"></div>
+    </div></details>
   </div>
 </section>
 
-<!-- ════════ 卷五 名帖 ════════ -->
-<section class="page fade wide" id="juan5">
-  <header class="sec-head"><span class="en">Volume V · Calling Cards</span><h2>❖ 卷五　名帖 ❖</h2><span class="sub">宗門親族・人類朋友・非人故交</span></header>
-  <p class="anyu">名帖依歷年拜年登記整理。親族的姓氏隨宗主家族，這裡只錄名字。年禮一欄照何伯的登記簿抄，他寫得比我詳細。</p>
+<!-- ════ 第三章 ════ -->
+<section class="ch" id="ch3">
+  <div class="ch-card" style="margin-top:0">
+    <div class="ch-no">第 三 章</div><h2>九子</h2>
+    <div class="narr">
+      <p>明天你會見到九個穿西裝、牛仔褲、漆皮褲的男人。</p>
+      <p class="q">「不過在人類學會寫字以前，我們長這樣。」</p>
+    </div>
+    <details class="more"><summary>細目・非人與遮蔽術</summary><div class="more-in">
+      <p>現代仍有神獸、山鬼、狐妖、精怪等非人族類，大多數普通人不知道他們存在。非人之間沒有統一的政府，靠各地舊約、地盤、血脈與人情維持秩序；他們在人間經商、戀愛、交友，不全是好人，也不全是壞人，年紀越大，倫理觀越不像人。</p>
+      <p><b>遮蔽術。</b>九子在外收起角、尾、鱗，偶爾露出一點，微弱的遮蔽術會讓普通人當成飾物、造型或光影。遮蔽不控制記憶，對拍攝設備與強烈的神通未必有效。</p>
+      <p><b>現代身分。</b>九子都有合法的身分與工作紀錄，長生靠長週期更換身分、交接產業處理。長期認識他們的人類，多半只知道他們來自同一個古老家族。</p>
+      <p><b>鎮瀾院的位置。</b>在非人世界裡，鎮瀾院是受龍契保護的古老宗門祖地，不是非人社會的首都。非人訪客進宅須通報身分與來意，由何伯登記；任何訪客不得在宅內施展大規模幻術、鬥法或破壞封印，九子的朋友也一樣。</p>
+      <p>下列體長皆為收斂原身時的尺寸，施展神通時靈相可再擴大。九子在祖堂與後山不宜完全化形；上一次有人這麼做，祖堂換了一根樑。</p>
+      <div class="slip" style="--c:#2f5079"><b>顧昭衡</b>「不全是好人，也不全是壞人」——老八，這句適用範圍請寫清楚。</div><div class="clr"></div>
+    </div></details>
+  </div>
+  <div class="sons" id="sons"></div>
+</section>
 
-  <h3>宗門親族</h3>
-  <div class="cards">
-    <div class="mingtie" style="--c:#a8322a">
-      <div class="n">三叔公　紹廷</div><div class="a">七十九歲・宗族長輩</div>
-      <p>很講輩分，古板愛面子，熟悉祭儀，年年來祖宅拜年，愛指點年輕人；下一秒又得對宗主行正式的宗門禮。</p>
-      <p><span class="k">知道多少：</span>知道龍契，但沒見過九子所有的原身。</p>
-      <p><span class="k">備註：</span>最怕霍無咎。可以提建議，不可替宗主擇主。</p>
-      <div class="hn" style="--c:#c9637f"><b>祝鳴珂</b>今年想到新的了。</div>
-    </div>
-    <div class="mingtie">
-      <div class="n">二姑婆　秀貞</div><div class="a">七十四歲・宗族長輩</div>
-      <p>年輕時住過祖宅，嘴巴厲害，愛打麻將，會派利是，也會問工作、生活與戀愛，但不把婚姻當繼位條件。會跟白懷石討論蘿蔔糕好不好吃。</p>
-      <p><span class="k">知道多少：</span>完全知道九子。</p>
-    </div>
-    <div class="mingtie" style="--c:#7a6230">
-      <div class="n">族叔　志謙</div><div class="a">五十二歲・會計與物業管理</div>
-      <p>現實，對祭拜沒興趣，對老宅資產與維修費很有意見，會認真問土地不開發合不合理。</p>
-      <p><span class="k">知道多少：</span>知道部分宗門秘密。</p>
-      <div class="hn" style="--c:#7a6230"><b>梁玄度</b>茶他喝了。</div>
-    </div>
-    <div class="mingtie" style="--c:#b02a37">
-      <div class="n">采寧</div><div class="a">三十三歲・同輩族親・公關與活動企劃</div>
-      <p>講話直接，愛拍照、排聚餐、打聽八卦。在商業活動見過祝鳴珂、在夜店見過殷照夜，沒想到兩人都是「老宅那邊的親戚」。</p>
-      <p><span class="k">知道多少：</span>不知道龍契真相，只知道宗門是古老大家族，供養著幾位特殊人物。由何伯安排接待範圍。</p>
-      <div class="hn" style="--c:#b02a37"><b>殷照夜</b>她在我店裡打過卡。我沒認她。</div>
-    </div>
-    <div class="mingtie" style="--c:#8f6a3c">
-      <div class="n">晉安</div><div class="a">二十七歲・同輩族親・軟體工程師</div>
-      <p>少數能跟宗主正常吐槽的晚輩，有點欠揍，但願意幫忙。曾替祖宅裝智慧門禁。</p>
-      <p><span class="k">知道多少：</span>知道九子不是普通人，不清楚他們的神通。</p>
-      <div class="hn" style="--c:#8f6a3c"><b>岑歸岫</b>門禁很好，只是不太喜歡風。</div>
-    </div>
-    <div class="mingtie" style="--c:#a8322a">
-      <div class="n">樂樂</div><div class="a">八歲・小族親</div>
-      <p>過年來吃糖、拿利是。最喜歡祝鳴珂，會問白懷石是不是巨人、晏清徵頭上為什麼有角、岑歸岫是不是在屋頂養鳥。</p>
-      <p><span class="k">知道多少：</span>完全不知情。</p>
-      <div class="hn" style="--c:#a8322a"><b>霍無咎</b>她要學打拳。我不教。……只教一下。</div>
+<!-- ════ 第四章 ════ -->
+<section class="ch" id="ch4">
+  <figure class="plate"><img src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=1200/charim/819491b4-c4c1-420b-9745-4986998329cf?v=a38536" alt="鎮瀾院外觀" loading="lazy"></figure>
+  <div class="ch-card">
+    <div class="ch-no">第 四 章</div><h2>鎮瀾院</h2>
+    <div class="narr">
+      <p>明天你會從前庭的青磚門樓走進來。</p>
+      <p>過了正廳是天井，老樹、石板地、迴廊，我們吃點心、吵架、曬太陽都在這裡。</p>
+      <p>東院是大哥的琴室，別碰他的琴。</p>
+      <p>後山最高的地方是觀風台，三哥常待在那裡，樹上掛著幾枚風鈴。</p>
     </div>
   </div>
-
-  <h3>人類朋友</h3>
-  <div class="cards">
-    <div class="mingtie" style="--c:#3f8f84">
-      <div class="n">唐卓仁</div><div class="a">六十七歲・退休中醫師・前宗主舊友</div>
-      <p>跟梁玄度、晏清徵較熟。拜年總帶藥材，提醒九子別把人類當成跟自己一樣耐折騰。</p>
-      <p><span class="k">知道多少：</span>知道九子真身。</p>
-      <div class="hn" style="--c:#3f8f84"><b>晏清徵</b>藥材很好。藥很苦。</div>
-    </div>
-    <div class="mingtie">
-      <div class="n">沈季堂</div><div class="a">四十五歲・古董與文物修復師</div>
-      <p>與容觀復、顧昭衡長期合作。曾替祖宅修復古碑，看見了不該存在的文字；知道一些事，很懂得閉嘴。</p>
-      <p><span class="k">知道多少：</span>知道九子真身，也知道哪些話不該問。</p>
-    </div>
-    <div class="mingtie">
-      <div class="n">羅啟明</div><div class="a">三十八歲・啟明搏擊會經營者</div>
-      <p>霍無咎的朋友兼合作夥伴，只覺得這男人天生是怪物。自己一年年變老，霍無咎卻從不需要解釋。過年帶妻子孩子來拜年。</p>
-      <p><span class="k">知道多少：</span>完全不知道霍無咎的真身。</p>
-    </div>
+  <div class="scenes">
+    <figure class="plate"><img src="img/sc-tianjing.webp" alt="中央天井" loading="lazy" width="1216" height="832"><figcaption><b>天井</b>春聯每年都有人嫌貼歪。</figcaption></figure>
+    <figure class="plate"><img src="img/sc-qinshi.webp" alt="東院琴室" loading="lazy" width="1216" height="832"><figcaption><b>東院琴室</b>古琴旁邊放著一台合成器。</figcaption></figure>
+    <figure class="plate"><img src="img/sc-guanfeng.webp" alt="後山觀風台" loading="lazy" width="1216" height="832"><figcaption><b>觀風台</b>後山最高處，閣樓前的石台。</figcaption></figure>
   </div>
-
-  <h3>非人故交</h3>
-  <p style="font-size:.9rem;color:var(--ochre)">非人多用幾百年的稱呼，未必是真名。</p>
-  <div class="cards">
-    <div class="mingtie fei" style="--c:#c9637f">
-      <div class="n">潮七公（老鰲）</div><div class="a">約三千餘歲・水族長者</div>
-      <p>曾在龍王麾下管一段水域，見證過初代龍契。人形是灰白長鬚、背微駝的老翁，拄黑木拐杖，暗金眼，背有龜甲紋；本相是背甲布滿海水蝕紋的古鰲。</p>
-      <p>愛喝酒、愛抱怨、愛講「想當年」，最愛罵霍無咎與祝鳴珂。</p>
-      <p><span class="k">年禮：</span>海底舊物、珍珠，和他自認好喝的酒。</p>
-      <div class="hn" style="--c:#c9637f"><b>祝鳴珂</b>酒真的很難喝。</div>
-    </div>
-    <div class="mingtie fei" style="--c:#8f6a3c">
-      <div class="n">應青蘿</div><div class="a">約一千二百歲・山鬼</div>
-      <p>依附山林靈脈而生，能與草木土石交換感知。人形約三十歲，烏黑長髮、琥珀眼，穿棉麻長裙，髮間偶爾長出嫩葉。嘴尖，愛挖苦，看不起只會講環保卻分不清樹種的人。</p>
-      <p><span class="k">年禮：</span>新春植物。每年順便檢查後山有沒有被亂挖。</p>
-      <div class="hn" style="--c:#8f6a3c"><b>岑歸岫</b>她說我分不清樹種。我分得清，只是不在乎。</div>
-    </div>
-    <div class="mingtie fei" style="--c:#cf8233">
-      <div class="n">柳硯秋</div><div class="a">約九百歲・狐妖</div>
-      <p>本相是六尾白狐，擅幻術與辨古物真偽。人形約三十五歲，深茶色長髮、淺金眼，戴眼鏡，穿著講究。古董商與拍賣顧問，精明、愛錢、口才好，消息靈通。</p>
-      <p><span class="k">年禮：</span>名茶、古董，以及不請自來的估價表。想看新宗主肯不肯出售藏品。</p>
-      <div class="hn" style="--c:#cf8233"><b>容觀復</b>估價表請直接交給我，親愛的，我替你收著。</div>
-    </div>
-    <div class="mingtie fei" style="--c:#5e9c90">
-      <div class="n">石二</div><div class="a">約六百歲・石獅精</div>
-      <p>原本鎮守另一座古廟。人形約四十歲，矮壯，灰短髮，皮膚偶現石紋。愛吃、曬太陽、喝茶，固執，看重守門的職責；敬佩白懷石。喝醉就抱怨自動感應門。</p>
-      <p><span class="k">年禮：</span>兩盒普通杏仁餅，和一塊重到要特殊搬運的鎮門石。</p>
-    </div>
-    <div class="mingtie fei" style="--c:#2f5079">
-      <div class="n">蘭鏡臺</div><div class="a">約一千八百歲・蜃妖</div>
-      <p>本相是巨大的蜃獸，能以霧氣短暫重現昔日景象。人形約四十歲，銀灰長髮、紫灰眼，愛珍珠。高傲、懶散，愛看人間熱鬧，對人類有興趣但不一定同情。見過很多代宗主，不會因為誰是宗主就喜歡誰。</p>
-      <p><span class="k">年禮：</span>一面能短暫重現舊景的蜃鏡。元宵可能在庭院投映舊時代的燈景。</p>
-      <div class="hn" style="--c:#2f5079"><b>顧昭衡</b>蜃鏡請放在祖堂以外的地方。</div>
-    </div>
+  <div class="ch-card" style="margin-top:1.6rem;width:min(1000px,100%)">
+    <details class="more" style="margin-top:0;border-top:none"><summary>細目・鎮瀾院全圖、住房與宅內規矩</summary><div class="more-in">
+      <p>鎮瀾院位於新界元朗錦田偏僻的山緣，一條私人山路通往錦田市區。外表古老，住起來很現代：初代龍契留下地下的龍契石壇與鎮水石基；古代留下祖堂、碑廊與藏書樓；明清以後是青磚主樓、天井與院牆；二十世紀加了廚房與宿舍；現代加了套房、電梯、空調、車庫、網路與保全。有一條走廊，量三次長度都不一樣。</p>
+      <div class="map-wrap"><div id="mapbox"></div><div><div class="map-panel" id="mapPanel" aria-live="polite"></div><p style="font-size:.8rem;color:var(--ochre);margin:.3rem 0 0">點圖上任一區域查看說明。</p></div></div>
+      <h3>宅內規矩</h3>
+      <ul><li>私人房間須經同意才能進入。</li><li>祖堂是公共祭祀場所，私人供奉也可在各自空間進行。</li><li>後山不動土，但可以散步。</li><li>三十日內以老宅為居所，白天可自由出入。</li><li>十人的住房與擇主無關，主奉不會因為被選中就搬進宗主房。</li></ul>
+      <div class="slip" style="--c:#5e9c90"><b>白懷石</b>西院的樓板是我換的。兩次。</div>
+      <div class="slip l" style="--c:#8f6a3c;--r:2deg"><b>岑歸岫</b>觀風台沒有門，不用找鑰匙。上來記得帶水。</div><div class="clr"></div>
+    </div></details>
   </div>
 </section>
 
-<!-- ════════ 卷六 存物 ════════ -->
-<section class="page fade wide" id="juan6">
-  <header class="sec-head"><span class="en">Volume VI · Holdings</span><h2>❖ 卷六　存物 ❖</h2><span class="sub">宅中舊物九件</span></header>
-  <p class="anyu">以下九件，管理宅務時遲早會碰到。本卷只登記品名、存處與經手限制，其餘不錄。</p>
-
-  <div class="reg">
-    <div class="regcard"><div class="no">存・壹</div><div class="pm">斷弦古琴</div><dl><dt>存放處</dt><dd>藏書樓・樂器櫃</dd><dt>經手限制</dt><dd>晏清徵不經手。</dd></dl></div>
-    <div class="regcard"><div class="no">存・貳</div><div class="pm">睚眥禁令</div><dl><dt>存放處</dt><dd>藏書樓・宗門舊檔</dd><dt>經手限制</dt><dd>霍無咎不經手。</dd></dl></div>
-    <div class="regcard"><div class="no">存・參</div><div class="pm">舊合照</div><dl><dt>存放處</dt><dd>主樓二樓走廊・舊相簿櫃</dd><dt>經手限制</dt><dd>—</dd></dl></div>
-    <div class="regcard"><div class="no">存・肆</div><div class="pm">古鐘裂痕</div><dl><dt>存放處</dt><dd>九龍祖堂・鐘架</dd><dt>經手限制</dt><dd>祝鳴珂不靠近。</dd></dl></div>
-    <div class="regcard"><div class="no">存・伍</div><div class="pm">庇護之城的老家族</div><dl><dt>存放處</dt><dd>前庭行政房・何伯的拜年名冊</dd><dt>經手限制</dt><dd>—</dd></dl></div>
-    <div class="regcard"><div class="no">存・陸</div><div class="pm">地底石碑</div><dl><dt>存放處</dt><dd>封碑庫・地下</dd><dt>經手限制</dt><dd>限歷代宗主查閱。白懷石不下去。</dd></dl></div>
-    <div class="regcard"><div class="no">存・柒</div><div class="pm">舊審堂判詞</div><dl><dt>存放處</dt><dd>舊審堂</dd><dt>經手限制</dt><dd>顧昭衡封閉。宗主可要求開放。</dd></dl></div>
-    <div class="regcard"><div class="no">存・捌</div><div class="pm">修改過的史冊</div><dl><dt>存放處</dt><dd>藏書樓</dd><dt>經手限制</dt><dd>編者不另作按語。</dd></dl></div>
-    <div class="regcard"><div class="no">存・玖</div><div class="pm">燒變形的金飾</div><dl><dt>存放處</dt><dd>後勤區・舊庫房</dd><dt>經手限制</dt><dd>殷照夜不經手。</dd></dl></div>
+<!-- ════ 第五章 ════ -->
+<section class="ch" id="ch5">
+  <div class="ch-card" style="margin-top:0">
+    <div class="ch-no">第 五 章</div><h2>三十日</h2>
+    <div class="narr">
+      <p>這三十天不會安靜。</p>
+      <p>初二全族來團拜，盆菜擺滿一桌；初三是赤口，老鰲偏偏挑這天來罵人；初四到初六，幾位不是人的老朋友會帶著禮物上門。</p>
+      <p>十五元宵，蘭鏡臺會在院子裡放一場幾百年前的燈。</p>
+    </div>
   </div>
+  <div class="tl" id="timeline"></div>
+</section>
 
-  <div class="unlisted">
-    <span>另有未編目卷宗九件，不列。</span>
-    <span class="seal" id="hseal" title="觀復" role="button" tabindex="0" aria-label="編者印">觀復</span>
+<!-- ════ 第六章 ════ -->
+<section class="ch" id="ch6">
+  <figure class="plate"><img src="img/sc-relics.webp" alt="宅中舊物" loading="lazy" width="1280" height="704"></figure>
+  <div class="ch-card">
+    <div class="ch-no">第 六 章</div><h2>宅中九物</h2>
+    <div class="narr">
+      <p>住久了你會發現，這座宅子裡有些東西誰也不肯碰。</p>
+      <p>一張斷了弦的琴、一口有裂痕的古鐘、一張舊合照……它們都有來歷。</p>
+      <p class="q">「親愛的，來歷這種事，等你真的想聽，自然會有人說。」</p>
+    </div>
+    <details class="more"><summary>細目・存物登記</summary><div class="more-in">
+      <p class="anyu">本卷只登記品名、存處與經手限制，其餘不錄。</p>
+      <div class="reg" id="reg"></div>
+    </div></details>
   </div>
 </section>
 
-<!-- ════════ 未編目（埋藏） ════════ -->
-<section id="hidden" class="page dark wide" aria-hidden="true">
+<!-- ════ 尾聲 ════ -->
+<section class="ch" id="epilogue">
+  <div class="ch-card" style="margin-top:0">
+    <div class="ch-no">尾　聲</div><h2>天快亮了</h2>
+    <div class="narr">
+      <p>窗外的天色淡了一層。</p>
+      <p class="q">「走之前，在借閱卡上簽個名吧。」</p>
+      <p>他把卡片推過來，「我那幾個兄弟的借書紀錄你可以看看。別學他們。」</p>
+    </div>
+    <div class="loan" id="loan"></div>
+    <div class="unlisted"><span>另有未編目卷宗九件，不列。</span><span class="seal" id="hseal" role="button" tabindex="0" aria-label="編者印">觀復</span></div>
+  </div>
+</section>
+
+<!-- ════ 未編目 ════ -->
+<section id="hidden" aria-hidden="true">
   <div class="warn" id="warnBox">
-    <p>這是編者沒有編進目錄的私錄，寫的是九子的舊事。<br>讀過之後，你會知道一些他們沒有親口告訴你的事。</p>
-    <button type="button" id="openSecret">仍要翻開</button>
+    <p>這是一本沒有編進目錄的私錄，寫的是九子的舊事。<br>讀過之後，你會知道一些他們沒有親口告訴你的事。</p>
+    <button class="g-btn" id="openSecret">仍要翻開</button>
   </div>
   <div id="secret">
-    <header class="sec-head" style="margin-top:1rem"><span class="en">Uncatalogued</span><h2>❖ 未編目 ❖</h2><span class="sub" style="color:#c9a24a">容觀復私錄</span></header>
+    <h2>❖ 未編目 ❖</h2><div class="sub">容觀復私錄</div>
     <p class="anyu">親愛的，你找到這裡了。那就照實寫吧。下面每一件，當事人都還活著，都還住在這座宅子裡；他們怎麼看當年的事，是他們的事。我只記發生了什麼。</p>
-
-    <div class="secret-entry"><div class="src">附・存壹　斷弦古琴</div><h3>晏清徵</h3>
-      <p>數百年前，有一座城遭邪音蠱惑。大哥以琴音封住了全城的聲音，災禍控制住了，城裡許多人從此再也聽不見。琴身內側刻著那座城的舊名。他不否認，也不求原諒，只說當時沒有更好的辦法。我相信必要時他還會這麼做。</p></div>
-
-    <div class="secret-entry"><div class="src">附・存貳　睚眥禁令</div><h3>霍無咎</h3>
-      <p>受二哥庇護的凡人遭人設局殺害。他把參與陰謀的家族連根拔起，年幼的、不知情的後人也沒放過，最後由當代宗主依龍契要求、老七出面才制止。禁令是那之後立的：不得因私人恩怨牽連無關者。他不認為需要原諒。問他後不後悔，他大概會說只後悔讓那混帳多活了三天。</p></div>
-
-    <div class="secret-entry"><div class="src">附・存參　舊合照</div><h3>岑歸岫</h3>
-      <p>數百年前，有一位繼承人選了三哥為主。兩人同行時，他放任一支隊伍自行冒險進山，山崩之後生還不足半數。兩人為此爭執，分開過一段時間，後來和好了，那人在他的陪伴下走完一生。六哥當年趕到時，只來得及鎮住剩下的山體。相簿櫃裡那張是多年後的重製影像。</p></div>
-
-    <div class="secret-entry"><div class="src">附・存肆　古鐘裂痕</div><h3>祝鳴珂</h3>
-      <p>四哥年少時模仿天災將至的龍鳴取樂，一座城鎮驚慌踩踏，有人傷亡。當代宗主把傷亡名冊扔到他面前，要他一個名字一個名字讀完。古鐘上的裂痕，是當年強行止住他時留下的。他從此學會分辨哪些遊戲會死人。然後繼續惡劣。</p></div>
-
-    <div class="secret-entry"><div class="src">附・存伍　庇護之城的老家族</div><h3>梁玄度</h3>
-      <p>動亂年間，五哥收留了大量百姓。為了保住一座城，他封鎖了所有出入口：百姓免於戰火，也失去了離開的自由。某代宗主說他「不是在養人，是在養一座籠子」，他回：「籠子外面，當時正在死人。」玄度山居就是由當年的庇護所演變來的，那幾個老姓氏至今仍依附於他。他認為秩序有代價。</p></div>
-
-    <div class="secret-entry"><div class="src">附・存陸　地底石碑</div><h3>白懷石</h3>
-      <p>地脈崩裂時，六哥沒等村民撤離，就以原身壓下了山脈；整座村落連同村民埋進地下，換來其他城鎮保全。他壓著山這件事不是秘密，山下有村才是。石碑上記著封山的位置與遇難者的姓名。他記得每一個名字，也仍會做同樣的取捨。</p></div>
-
-    <div class="secret-entry"><div class="src">附・存柒　舊審堂判詞</div><h3>顧昭衡</h3>
-      <p>老七深愛過的那位繼承人，為了救一群將被獻祭的百姓，私改了宗門與地方神祇的附屬神契。人救下來了，封印也破了。老七親自審理，依律判戀人囚禁十年，判詞末尾是他的親筆署名。他不忌諱談那段感情；審判的細節，他不對外人說，我也就寫到這裡。</p></div>
-
-    <div class="secret-entry"><div class="src">附・存捌　修改過的史冊</div><h3>容觀復</h3>
-      <p>整理史冊時，我發現一位受敬仰的宗門祖師曾為私利犧牲大量無辜者。為了不讓宗門分裂，我刪去了受害者的姓名，把他的私慾改寫成了犧牲。他至今仍被奉為聖賢。老七知道我改過，不知道原稿在哪。</p>
-      <p>原稿在哪，親愛的，這一條我不寫。要不要讓它見光，是宗主的事；等你想好了，來找我。</p></div>
-
-    <div class="secret-entry"><div class="src">附・存玖　燒變形的金飾</div><h3>殷照夜</h3>
-      <p>一座城的掌權者以邪術獻祭無辜。城裡起大火的那一夜，老九就在城外，坐著看了一整夜，直到火燒到鄰近的居民區才出手吞火；有無辜的人沒能逃出來。那枚金飾是倖存者送來質問他的信物。</p></div>
-
-    <p class="anyu">寫完了。這一頁不在目錄裡，你也可以當作沒看過。他們不會因為你知道了就變成別的樣子；你怎麼看他們，由你決定。</p>
-  </div>
-</section>
-
-<!-- ════════ 借閱卡 ════════ -->
-<section class="page fade wide" id="loan">
-  <header class="sec-head"><span class="en">Loan Record</span><h2>❖ 借閱卡 ❖</h2><span class="sub">藏書樓・本年度</span></header>
-  <div class="loan">
-    <div class="row hd"><div>借閱人</div><div>書名</div><div>備註</div></div>
-    <div class="row"><div class="who" style="--c:#a8322a">霍無咎</div><div class="bk">《格鬥規則彙編》1998 年版</div><div class="rm">未還。第三次催還。</div></div>
-    <div class="row"><div class="who" style="--c:#c9637f">祝鳴珂</div><div class="bk">《歷代煙火禁令輯錄》</div><div class="rm">借去研究漏洞。已還，夾了一隻會叫的玩具。</div></div>
-    <div class="row"><div class="who" style="--c:#2f5079">顧昭衡</div><div class="bk">《初契錄》卷七</div><div class="rm">已還，附便條三張，指出抄寫錯字。</div></div>
-    <div class="row"><div class="who" style="--c:#b02a37">殷照夜</div><div class="bk">《香譜》</div><div class="rm">已還，書頁有香水味。梁玄度投訴。</div></div>
-    <div class="row"><div class="who" style="--c:#5e9c90">白懷石</div><div class="bk">《家具承重入門》</div><div class="rm">續借第四次。</div></div>
-    <div class="row"><div class="who" style="--c:#7a6230">梁玄度</div><div class="bk">《潮州工夫茶》</div><div class="rm">下屬代借、代還，本人未到。</div></div>
-    <div class="row"><div class="who" style="--c:#8f6a3c">岑歸岫</div><div class="bk">《香港山徑圖》1972 年版</div><div class="rm">借出日期 1974。</div></div>
-    <div class="row"><div class="who" style="--c:#3f8f84">晏清徵</div><div class="bk">《琴學入門》</div><div class="rm">借去批改。已還，批註比原文多。</div></div>
-    <div class="row"><div class="who" style="--c:#cf8233"><span class="strike">編者不借書</span> 容觀復</div><div class="bk">《宗主須知》何伯手稿</div><div class="rm">借來參考。已還，何伯沒發現。</div></div>
-    <div class="row"><div class="who" style="--c:#2b1a12">宗主</div><div class="bk">　</div><div class="rm">　</div></div>
+    <div class="src">附・存壹　斷弦古琴</div><h3>晏清徵</h3><p>數百年前，有一座城遭邪音蠱惑。大哥以琴音封住了全城的聲音，災禍控制住了，城裡許多人從此再也聽不見。琴身內側刻著那座城的舊名。他不否認，也不求原諒，只說當時沒有更好的辦法。我相信必要時他還會這麼做。</p>
+    <div class="src">附・存貳　睚眥禁令</div><h3>霍無咎</h3><p>受二哥庇護的凡人遭人設局殺害。他把參與陰謀的家族連根拔起，年幼的、不知情的後人也沒放過，最後由當代宗主依龍契要求、老七出面才制止。禁令是那之後立的：不得因私人恩怨牽連無關者。他不認為需要原諒。問他後不後悔，他大概會說只後悔讓那混帳多活了三天。</p>
+    <div class="src">附・存參　舊合照</div><h3>岑歸岫</h3><p>數百年前，有一位繼承人選了三哥為主。兩人同行時，他放任一支隊伍自行冒險進山，山崩之後生還不足半數。兩人為此爭執，分開過一段時間，後來和好了，那人在他的陪伴下走完一生。六哥當年趕到時，只來得及鎮住剩下的山體。相簿櫃裡那張是多年後的重製影像。</p>
+    <div class="src">附・存肆　古鐘裂痕</div><h3>祝鳴珂</h3><p>四哥年少時模仿天災將至的龍鳴取樂，一座城鎮驚慌踩踏，有人傷亡。當代宗主把傷亡名冊扔到他面前，要他一個名字一個名字讀完。古鐘上的裂痕，是當年強行止住他時留下的。他從此學會分辨哪些遊戲會死人。然後繼續惡劣。</p>
+    <div class="src">附・存伍　庇護之城的老家族</div><h3>梁玄度</h3><p>動亂年間，五哥收留了大量百姓。為了保住一座城，他封鎖了所有出入口：百姓免於戰火，也失去了離開的自由。某代宗主說他「不是在養人，是在養一座籠子」，他回：「籠子外面，當時正在死人。」玄度山居就是由當年的庇護所演變來的，那幾個老姓氏至今仍依附於他。他認為秩序有代價。</p>
+    <div class="src">附・存陸　地底石碑</div><h3>白懷石</h3><p>地脈崩裂時，六哥沒等村民撤離，就以原身壓下了山脈；整座村落連同村民埋進地下，換來其他城鎮保全。他壓著山這件事不是秘密，山下有村才是。石碑上記著封山的位置與遇難者的姓名。他記得每一個名字，也仍會做同樣的取捨。</p>
+    <div class="src">附・存柒　舊審堂判詞</div><h3>顧昭衡</h3><p>老七深愛過的那位繼承人，為了救一群將被獻祭的百姓，私改了宗門與地方神祇的附屬神契。人救下來了，封印也破了。老七親自審理，依律判戀人囚禁十年，判詞末尾是他的親筆署名。他不忌諱談那段感情；審判的細節，他不對外人說，我也就寫到這裡。</p>
+    <div class="src">附・存捌　修改過的史冊</div><h3>容觀復</h3><p>整理史冊時，我發現一位受敬仰的宗門祖師曾為私利犧牲大量無辜者。為了不讓宗門分裂，我刪去了受害者的姓名，把他的私慾改寫成了犧牲。他至今仍被奉為聖賢。老七知道我改過，不知道原稿在哪。</p><p>原稿在哪，親愛的，這一條我不寫。要不要讓它見光，是宗主的事；等你想好了，來找我。</p>
+    <div class="src">附・存玖　燒變形的金飾</div><h3>殷照夜</h3><p>一座城的掌權者以邪術獻祭無辜。城裡起大火的那一夜，老九就在城外，坐著看了一整夜，直到火燒到鄰近的居民區才出手吞火；有無辜的人沒能逃出來。那枚金飾是倖存者送來質問他的信物。</p>
+    <p class="anyu" style="margin-top:1.6rem">寫完了。這一冊不在目錄裡，你也可以當作沒看過。他們不會因為你知道了就變成別的樣子；你怎麼看他們，由你決定。</p>
   </div>
 </section>
 
 </main>
-
 <div class="huiwen"></div>
-<footer>
-  <div class="hook">九盞燈，照一扇門。</div>
-  <small>《龍生九子》世界觀頁・鎮瀾院藏書樓目錄</small>
-</footer>
+<footer id="end"><div class="hook">九盞燈，照一扇門。</div><small>《龍生九子》世界觀・鎮瀾院藏書樓</small></footer>
 
 <script>
-/* 漸顯 */
-(function(){
-  var els=document.querySelectorAll('.fade');
-  if(!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.06});
-  els.forEach(function(e){io.observe(e)});
-})();
+/* ════════ 資料（翻譯時只換這一段與上方 HTML 文字） ════════ */
+const SONS=[
+ {k:'壹',dragon:'囚牛',name:'晏清徵',rank:'老大',gift:'御音',c:'#3f8f84',img:'F01',por:'371b454a-23ca-443e-9b7d-fa2d29fcc753?v=adf7ff',line:'大哥聽得見三條街外有人唱走音。',
+  form:'深青綠長身龍獸，短角，頸側有細密的感音鱗。',len:'約 8–12 米',pow:'御音、聽息。樂音能安定神魂、化作結界；能從細微聲響辨認生命氣息。',lim:'能平息躁動，不能憑樂音永久控制意志。',off:'合奏；為他焚一爐清香。',
+  led:['祝鳴珂一聲龍鳴震毀了他一張古琴，兩人在東院打了一架。琴室那面隔音牆，是那一架之後補的。','用岑歸岫從山裡帶回的木材做過幾枚風鈴，掛在不同的山頭；岑歸岫至今沒全拆。','某代宗主五音不全，每年元宵堅持要跟他合奏。他陪了三十一年，一次也沒離席。'],note:['祝鳴珂','#c9637f','大哥原身的時候耳朵比本人還挑。']},
+ {k:'貳',dragon:'睚眥',name:'霍無咎',rank:'老二',gift:'兵煞',c:'#a8322a',img:'F02',por:'6ae2e121-f3e1-4869-a72c-1ab0cf005d81?v=869b97',line:'二哥背上的鱗脊是刀刃。他打架不是為了贏，是為了再打一場。',
+  form:'似狼的龍形猛獸，赤瞳利齒，背生刃狀鱗脊。',len:'約 6–9 米',pow:'兵煞、御刃。戰意越烈，龍威越強。',lim:'能御刃殺伐，不代表所有敵人都能一擊而勝。',off:'陪他練一場；看他比賽。',
+  led:['古代一場戰事裡和白懷石互救過性命，兩人從不提起。','和顧昭衡打過不只一次，最近一次是為了停車位。','羅啟明的拳館開張那年，他打贏了館裡所有人，然後被羅啟明罰掃了一個月的地。他真的掃了。'],note:['白懷石','#5e9c90','……他原身會咬沙發。']},
+ {k:'參',dragon:'嘲風',name:'岑歸岫',rank:'老三',gift:'御風',c:'#8f6a3c',img:'F03',por:'1970d6c7-7d5c-4eae-882e-5b4675e785ac?v=13a047',line:'三哥住在風口上。災厄要來，他看得見，但不一定會說。',
+  form:'修長的山崖龍獸，棕角，鉤爪，背有御風的鱗膜。',len:'約 7–10 米',pow:'御風、望氣。擅長在高處察覺災厄的徵兆。',lim:'能察覺災厄徵兆，不能看見所有未來。',off:'一起在高處看日出、靜坐。',
+  led:['和山鬼應青蘿認識很久，幾十年不見，見面照樣互嫌。','晉安替祖宅裝的智慧門禁三天壞了七次。他沒承認，也沒否認。','有一回出門四十年沒消息，回來時提著一袋高山茶，問大家吃過飯沒有。'],note:['晏清徵','#3f8f84','風鈴可以留著。上面那句不用寫。']},
+ {k:'肆',dragon:'蒲牢',name:'祝鳴珂',rank:'老四',gift:'龍鳴',c:'#c9637f',img:'F04',por:'8ee3264b-99b1-439a-a3fa-fdcbdd563c93?v=fb1589',line:'四哥一開口，結界擋不住，玻璃也擋不住。',
+  form:'黑尾粉鱗的龍形異獸，胸喉發達，體型緊實。',len:'約 5–7 米',pow:'龍鳴、震魂。聲音能穿透結界、震碎物體、傳至極遠。',lim:'龍鳴威力驚人，但要精確控制，得刻意收斂。',off:'陪他試玩新品，一起玩到很晚。',
+  led:['和殷照夜聯手燒掉過半座臨時行宮。宗門從此規定兩人未經許可不得共同規劃大型煙火。','三叔公年輕時訓斥過他，結果被戲弄了整個新年。','白懷石是他的玩具耐久度測試員。測試紀錄：玩具零勝。'],note:['殷照夜','#b02a37','那座行宮本來就很醜。']},
+ {k:'伍',dragon:'狻猊',name:'梁玄度',rank:'老五',gift:'御煙',c:'#7a6230',img:'F05',por:'dc3c7b51-2a16-4862-bb93-bb69f4fe18ef?v=12622b',line:'五哥吐出的煙能鎮邪，也能把一整座山藏起來。',
+  form:'黑金鬃毛的獅形龍獸，身軀厚重，口鼻能吐香煙。',len:'約 9–13 米',pow:'御煙、鎮邪。煙霧能驅邪、遮蔽行蹤、安定靈場。',lim:'能以煙霧鎮邪，不能憑香煙操縱所有生命。',off:'一同用飯；在香室焚香。',
+  led:['族叔志謙提議賣掉一塊閒置地，被他請去喝了四小時的茶，出來後撤回提案，至今不說原因。','殷照夜早年的產業受過他的資金與人脈支持，兩人都不提。','和鄺美蓮為廚房換茶葉的事吵過。鄺美蓮贏了。'],note:['容觀復','#cf8233','五哥家的飯是全香港最好的，這句是交換條件。']},
+ {k:'陸',dragon:'贔屭',name:'白懷石',rank:'老六',gift:'負山',c:'#5e9c90',img:'F06',por:'56b6bc56-fa5e-4ce7-9e11-ddc8ac3b0e51?v=d6027e',line:'六哥收斂之後還有三十幾米長。從前背山，現在背家具。',
+  form:'巨大的龜形龍獸，龍首重甲，四肢厚重。人形身上的鱗紋如日本傳統刺青般延展。',len:'約 18–35 米',pow:'負山、鎮地。能穩固地脈，龍甲堅不可摧。',lim:'能鎮地脈，但不能無代價地同時背負所有崩裂之地。',off:'陪他曬太陽；安靜吃一頓飯。',
+  led:['二姑婆小時候坐過他的肩膀。七十年後他還是那張臉，她照樣問：「懷石，今日食咗飯未呀？」','兄弟搬家，第一個想到的都是他。','石獅精石二六百年前第一次見到他，以為是一座山，對著拜了三拜。'],note:['白懷石','#5e9c90','……食咗。']},
+ {k:'柒',dragon:'狴犴',name:'顧昭衡',rank:'老七',gift:'明辨',c:'#2f5079',img:'F07',por:'b2b09c64-9dcf-4141-8638-8b95c8884d6e?v=fbe37a',line:'七哥分得出誓言是真是假。人心他看不透，所以他會一直問。',
+  form:'深藍黑紋的虎形龍獸，爪牙鋒利，藍色神瞳。',len:'約 7–11 米',pow:'明辨、神判。能感知誓言與契約的真偽，施以禁錮封印。',lim:'能辨契約真偽，不能讀心。',off:'正式祭儀；一盤棋。',
+  led:['當年親自把初代龍契的條文從頭審過一遍，是九子裡唯一細讀過的人。','曾深愛過一位契約主。他不忌諱談那段感情。','和容觀復為一個詞辯論過三小時，最後兩人都改用了第三個詞。'],note:['霍無咎','#a8322a','停車位是我的。']},
+ {k:'捌',dragon:'負屭',name:'容觀復',rank:'老八',gift:'通文',c:'#cf8233',img:'F08',por:'972078cf-22f0-4117-8099-2dadd3c20ecf?v=4b9986',line:'刻在石頭上的神文，我讀得懂。至於寫在紙上的，親愛的，那要看是誰寫的。',
+  form:'白鱗長身盤龍，雙角微卷，鱗片帶天然的碑文紋路。',len:'約 9–14 米',pow:'通文、銘靈。能解讀神文與封印。',lim:'能讀神文與殘留記錄，但不知道所有歷史；記錄也可能不完整，或遭篡改。',off:'聽你講故事；親手寫的祝禱文。',
+  led:['把兄弟們幾百年前的蠢事改了名字寫進小說。柳硯秋為其中一本的版權跟他吵到現在。','最長一次拖稿十一個月，交稿時附了一盒蛋撻給許靜宜。','常去梁玄度家蹭飯。'],note:['容觀復','#cf8233','自己的卷軸由自己編，親愛的，這叫利益迴避的反面。']},
+ {k:'玖',dragon:'螭吻',name:'殷照夜',rank:'老九',gift:'吞火',c:'#b02a37',img:'F09',por:'29cbf814-7b70-4a07-b3ca-3db93f3c8bdc?v=d6fa6a',line:'九弟能把火吞下去。他說味道像焦糖。',
+  form:'魚尾龍身、背有鰭脊的龍獸，巨口能吞靈火與災氣。',len:'約 10–16 米',pow:'吞火、消災。能吞噬靈火與部分災厄之氣。',lim:'能吞火消災，不能吞噬世間一切力量。',off:'陪他喝一杯；親密接觸。',
+  led:['燒行宮那次，他是另一個。','上世紀七〇年代在灣仔開過第一家店，招牌是祝鳴珂設計的，亮到被鄰居投訴。','梁玄度不許他把香水味帶進茶室，他每次都帶。'],note:['梁玄度','#7a6230','不是每次。是每一次。']}
+];
+const L={form:'原身',len:'收斂體長',pow:'本源神通',lim:'神通邊界',off:'偏好供奉',led:'舊帳',more:'細目・原身與舊帳',know:'知道多少：',gift:'年禮：',memo:'備註：',loc:'存放處',limit:'經手限制'};
+
+const P=(n,a,d,o={})=>Object.assign({n,a,d},o);
+const DAYS=[
+ {d:'初一',s:'第 1 日',ev:'歲首祭禮，你第一次主祭，第一批拜年客上門。',who:[
+   P('三叔公　紹廷','七十九歲・宗族長輩','很講輩分，古板愛面子，熟悉祭儀，愛指點年輕人；下一秒又得對宗主行正式的宗門禮。',{k:'知道龍契，但沒見過九子所有的原身。',m:'最怕霍無咎。可以提建議，不可替宗主擇主。',h:['祝鳴珂','#c9637f','今年想到新的了。']}),
+   P('二姑婆　秀貞','七十四歲・宗族長輩','年輕時住過祖宅，嘴巴厲害，愛打麻將，會問工作、生活與戀愛，但不把婚姻當繼位條件。會跟白懷石討論蘿蔔糕好不好吃。',{k:'完全知道九子。'})]},
+ {d:'初二',s:'第 2 日',ev:'宗族團拜，盆菜宴。你坐主位受拜年；九弟可能剛睡醒，六哥只在意何時開飯。',img:['sc-poonchoi','盆菜宴'],who:[
+   P('族叔　志謙','五十二歲・會計與物業管理','現實，對祭拜沒興趣，對老宅資產與維修費很有意見。',{k:'知道部分宗門秘密。',h:['梁玄度','#7a6230','茶他喝了。']}),
+   P('采寧','三十三歲・公關與活動企劃','愛拍照、排聚餐、打聽八卦。在商業活動見過祝鳴珂、在夜店見過殷照夜，沒想到兩人都是「老宅那邊的親戚」。',{k:'不知道龍契真相。由何伯安排接待範圍。',h:['殷照夜','#b02a37','她在我店裡打過卡。我沒認她。']}),
+   P('晉安','二十七歲・軟體工程師','少數能跟宗主正常吐槽的晚輩，有點欠揍，但願意幫忙。曾替祖宅裝智慧門禁。',{k:'知道九子不是普通人，不清楚他們的神通。',h:['岑歸岫','#8f6a3c','門禁很好，只是不太喜歡風。']}),
+   P('樂樂','八歲・小族親','最喜歡祝鳴珂，會問白懷石是不是巨人、晏清徵頭上為什麼有角。',{k:'完全不知情。',h:['霍無咎','#a8322a','她要學打拳。我不教。……只教一下。']})]},
+ {d:'初三',s:'第 3 日',ev:'赤口，傳統上容易口角的日子。偏偏有客上門，進門沒多久就開始罵龍王當年養的九個逆子。',who:[
+   P('潮七公（老鰲）','約三千餘歲・水族長者','見證過初代龍契。人形是灰白長鬚、背微駝的老翁，拄黑木拐杖；本相是背甲布滿海水蝕紋的古鰲。愛喝酒、愛講「想當年」，最愛罵霍無咎與祝鳴珂。',{f:1,g:'海底舊物、珍珠，和他自認好喝的酒。',h:['祝鳴珂','#c9637f','酒真的很難喝。']})]},
+ {d:'初四至初六',s:'第 4–6 日',ev:'非人故交陸續登門，禮物倉庫堆滿不能亂碰的東西，你得決定放哪裡。',who:[
+   P('應青蘿','約一千二百歲・山鬼','依附山林靈脈而生。人形約三十歲，烏黑長髮、琥珀眼，髮間偶爾長出嫩葉。嘴尖，愛挖苦。',{f:1,g:'新春植物。順便檢查後山有沒有被亂挖。',h:['岑歸岫','#8f6a3c','她說我分不清樹種。我分得清，只是不在乎。']}),
+   P('柳硯秋','約九百歲・狐妖','本相是六尾白狐。人形約三十五歲，戴眼鏡，古董商與拍賣顧問，精明、愛錢、消息靈通。',{f:1,g:'名茶、古董，以及不請自來的估價表。',h:['容觀復','#cf8233','估價表請直接交給我，親愛的，我替你收著。']}),
+   P('石二','約六百歲・石獅精','原本鎮守另一座古廟。人形矮壯，皮膚偶現石紋。愛吃、曬太陽，看重守門的職責；喝醉就抱怨自動感應門。',{f:1,g:'兩盒普通杏仁餅，和一塊重到要特殊搬運的鎮門石。'})]},
+ {d:'初七',s:'第 7 日',ev:'人日，全宅替每個人過象徵性的生日。九個活了幾千年的，對「全人類同一天生日」理解各異。',who:[
+   P('唐卓仁','六十七歲・退休中醫師・前宗主舊友','拜年總帶藥材，提醒九子別把人類當成跟自己一樣耐折騰。',{k:'知道九子真身。',h:['晏清徵','#3f8f84','藥材很好。藥很苦。']}),
+   P('沈季堂','四十五歲・文物修復師','與容觀復、顧昭衡長期合作。曾替祖宅修復古碑，看見了不該存在的文字；很懂得閉嘴。',{k:'知道九子真身，也知道哪些話不該問。'}),
+   P('羅啟明','三十八歲・啟明搏擊會經營者','霍無咎的朋友兼合作夥伴，只覺得這男人天生是怪物。帶妻子孩子來拜年。',{k:'完全不知道霍無咎的真身。'})]},
+ {d:'十五',s:'第 15 日',ev:'元宵家宴，難得湊齊十個人的一桌。院子裡起了霧，霧裡亮起幾百年前的燈。',img:['sc-yuanxiao','元宵'],who:[
+   P('蘭鏡臺','約一千八百歲・蜃妖','本相是巨大的蜃獸，能以霧氣短暫重現昔日景象。人形約四十歲，銀灰長髮、愛珍珠。高傲、懶散，見過很多代宗主，不會因為誰是宗主就喜歡誰。',{f:1,g:'一面能短暫重現舊景的蜃鏡。',h:['顧昭衡','#2f5079','蜃鏡請放在祖堂以外的地方。']})]},
+ {d:'第三十日',s:'承契完成',ev:'祖堂的儀式很簡單。同居之約解除，誰留誰走，不再由契約決定。你仍是宗主。',who:[]}
+];
+const RELICS=[['存・壹','斷弦古琴','藏書樓・樂器櫃','晏清徵不經手。'],['存・貳','睚眥禁令','藏書樓・宗門舊檔','霍無咎不經手。'],['存・參','舊合照','主樓二樓走廊・舊相簿櫃','—'],['存・肆','古鐘裂痕','九龍祖堂・鐘架','祝鳴珂不靠近。'],['存・伍','庇護之城的老家族','前庭行政房・何伯的拜年名冊','—'],['存・陸','地底石碑','封碑庫・地下','限歷代宗主查閱。白懷石不下去。'],['存・柒','舊審堂判詞','舊審堂','顧昭衡封閉。宗主可要求開放。'],['存・捌','修改過的史冊','藏書樓','編者不另作按語。'],['存・玖','燒變形的金飾','後勤區・舊庫房','殷照夜不經手。']];
+const LOAN=[['借閱人','書名','備註'],['霍無咎','#a8322a','《格鬥規則彙編》1998 年版','未還。第三次催還。'],['祝鳴珂','#c9637f','《歷代煙火禁令輯錄》','借去研究漏洞。已還，夾了一隻會叫的玩具。'],['顧昭衡','#2f5079','《初契錄》卷七','已還，附便條三張，指出抄寫錯字。'],['殷照夜','#b02a37','《香譜》','已還，書頁有香水味。梁玄度投訴。'],['白懷石','#5e9c90','《家具承重入門》','續借第四次。'],['梁玄度','#7a6230','《潮州工夫茶》','下屬代借、代還，本人未到。'],['岑歸岫','#8f6a3c','《香港山徑圖》1972 年版','借出日期 1974。'],['晏清徵','#3f8f84','《琴學入門》','借去批改。已還，批註比原文多。'],['<span class="strike">編者不借書</span> 容觀復','#cf8233','《宗主須知》何伯手稿','借來參考。已還，何伯沒發現。'],['宗主','#2b1a12','　','　']];
+const MAP={north:'北',road:'私人山路　往錦田',labels:{hou:['後山・觀風台'],bei:['碑廊','藏書樓','封碑庫在地下'],zu:['九龍祖堂','龍契石壇在堂下'],shen:['舊審堂','已封閉'],xi:['西院','練武場・娛樂室'],zhu:['中央主樓','天井','大餐廳'],dong:['東院','琴室・書齋・茶室'],hq:['後勤區'],ting:['正廳'],chu:['廚房'],men:['前庭與門樓']},
+ zones:{
+  men:{t:'前庭與門樓',e:'近代・現代',p:['青磚門樓、獨立車道、門衛室、接待廳與行政房。九子的車回宅、外人拜年、收包裹，都在這裡。'],r:''},
+  ting:{t:'正廳',e:'明清',p:['接待宗門賓客、接見親族的地方，牆上掛著歷代宗主的畫像。有些龍子從不看這些畫像，有些記得畫中每個人的名字與聲音。'],r:''},
+  zhu:{t:'中央主樓與天井',e:'明清至現代',p:['石板地、老樹、迴廊；主樓有客廳與大餐廳，十人以上的圓桌，是兄弟們最常碰面的地方。'],r:'<b>宗主</b>：二樓宗主套房<br><b>顧昭衡</b>：二樓，整齊到近乎制式<br><b>梁玄度</b>：北側一樓，直通香室<br><b>白懷石</b>：北側一樓，床架與樓板經特殊加固'},
+  chu:{t:'廚房',e:'二十世紀・現代',p:['中式大廚房加現代設備。鄺美蓮的地盤，她知道每位龍子的口味，也敢罵每一位。'],r:''},
+  dong:{t:'東院',e:'明清・現代',p:['隔音琴室、書齋、茶室與香室。梁玄度最常待在茶室；他不許殷照夜把香水味帶進來。'],r:'<b>晏清徵</b>：二樓，連通私人琴室<br><b>容觀復</b>：二樓，附私人書房'},
+  xi:{t:'西院',e:'現代強化',p:['室內外兩處練武場，地面經特殊強化；娛樂室有遊戲機與投影，祝鳴珂常拉人打電動。'],r:'<b>霍無咎</b>：二樓，近練武場，房間很空<br><b>祝鳴珂</b>：二樓，收藏品最多<br><b>殷照夜</b>：最外側二樓，獨立樓梯'},
+  zu:{t:'九龍祖堂',e:'古代・初代',p:['九尊龍子神龕，堂下是初代龍契石壇。正式供奉、歲首祭禮、擇主都在這裡。門邊春聯每年都有人嫌貼歪。'],r:''},
+  bei:{t:'碑廊・藏書樓・封碑庫',e:'古代',p:['碑廊記歷代宗主事蹟；藏書樓收宗門史冊與古籍，你今晚就在這裡；封碑庫在地下。'],r:''},
+  shen:{t:'舊審堂',e:'古代',p:['已停用，保留古代神判設施，由顧昭衡封閉。宗主可以要求開放，他會帶你去。'],r:''},
+  hq:{t:'後勤區',e:'二十世紀',p:['洗衣房、員工休息室、維修間、倉庫與舊庫房。年節會堆滿各方送來的年禮。'],r:''},
+  hou:{t:'後山與觀風台',e:'山體',p:['後山不能動土，但可以散步。觀風台在最高處，可以看山勢、夜空與遠處的燈火。'],r:'<b>岑歸岫</b>：靠後山的二樓邊間，露台通往觀風台'}}};
+const LAMPS=[['prologue','序章'],['ch1','一'],['ch2','二'],['ch3','三'],['ch4','四'],['ch5','五'],['ch6','六'],['epilogue','尾聲'],['end','門']];
+
+/* ════════ 渲染 ════════ */
+const slip=(h,l)=>h?`<div class="slip${l?' l':''}" style="--c:${h[1]}${l?';--r:2deg':''}"><b>${h[0]}</b>${h[2]}</div><div class="clr"></div>`:'';
+document.getElementById('sons').innerHTML=SONS.map(s=>`
+ <article class="son" style="--c:${s.c}">
+  <figure class="plate"><img src="img/${s.img}.webp" alt="${s.dragon}原身" loading="lazy" width="1216" height="832">
+   <figcaption><div class="son-tag"><span class="num">${s.k}</span><span class="nm">${s.dragon}　${s.name}<small>${s.rank}・${s.gift}</small></span></div><div class="son-line">${s.line}</div></figcaption></figure>
+  <div class="son-more"><details class="more"><summary>${L.more}</summary><div class="more-in">
+   <div class="son-grid"><img class="por" src="https://cdn.caveduck.io/cdn-cgi/image/f=auto,w=400/charim-standard/${s.por}" alt="${s.name}" loading="lazy">
+    <dl class="spec"><dt>${L.form}</dt><dd>${s.form}</dd><dt>${L.len}</dt><dd>${s.len}</dd><dt>${L.pow}</dt><dd>${s.pow}</dd><dt>${L.lim}</dt><dd>${s.lim}</dd><dt>${L.off}</dt><dd>${s.off}</dd></dl></div>
+   <div class="ledger"><h5>${L.led}</h5><ul>${s.led.map(x=>`<li>${x}</li>`).join('')}</ul></div>${slip(s.note)}
+  </div></details></div>
+ </article>`).join('');
+
+document.getElementById('timeline').innerHTML=DAYS.map(d=>`
+ <div class="day"><div class="d"><b>${d.d}</b><small>${d.s}</small></div><div class="c">
+  <p class="ev">${d.ev}</p>
+  ${d.img?`<figure class="plate"><img src="img/${d.img[0]}.webp" alt="${d.img[1]}" loading="lazy" width="1216" height="832"></figure>`:''}
+  ${d.who.length?`<div class="who">${d.who.map(w=>`<details class="${w.f?'fei':''}"><summary>${w.n}</summary><div class="mingtie" style="--c:${w.h?w.h[1]:'#2b1a12'}"><div class="a">${w.a}</div><p>${w.d}</p>${w.k?`<p><span class="k">${L.know}</span>${w.k}</p>`:''}${w.m?`<p><span class="k">${L.memo}</span>${w.m}</p>`:''}${w.g?`<p><span class="k">${L.gift}</span>${w.g}</p>`:''}${w.h?`<div class="hn" style="--c:${w.h[1]}"><b>${w.h[0]}</b>${w.h[2]}</div>`:''}</div></details>`).join('')}</div>`:''}
+ </div></div>`).join('');
+
+document.getElementById('reg').innerHTML=RELICS.map(r=>`<div class="regcard"><div class="no">${r[0]}</div><div class="pm">${r[1]}</div><dl><dt>${L.loc}</dt><dd>${r[2]}</dd><dt>${L.limit}</dt><dd>${r[3]}</dd></dl></div>`).join('');
+document.getElementById('loan').innerHTML=`<div class="row hd">${LOAN[0].map(h=>`<div>${h}</div>`).join('')}</div>`+LOAN.slice(1).map(r=>`<div class="row"><div class="w" style="--c:${r[1]}">${r[0]}</div><div>${r[2]}</div><div class="rm">${r[3]}</div></div>`).join('');
+document.querySelector('.lamps').innerHTML=LAMPS.map(l=>`<a href="#${l[0]}" data-k="${l[0]}"><i></i><span>${l[1]}</span></a>`).join('');
 
 /* 輿圖 */
 (function(){
-  var D={
-    men:{t:'前庭與門樓',e:'近代・現代',p:['青磚門樓、獨立車道、門衛室、接待廳與行政房。九子的車回宅、外人拜年、收包裹，都在這裡。','何伯的拜年名冊放在行政房。'],r:''},
-    ting:{t:'正廳',e:'明清',p:['接待宗門賓客、接見親族，也是宗主處理宗門事務的地方。牆上掛著歷代宗主的畫像。','有些龍子從不看這些畫像，有些每年去看一次，有些記得畫中每個人的名字與聲音。'],r:''},
-    zhu:{t:'中央主樓與天井',e:'明清至現代',p:['石板地、老樹、迴廊，採光好；吃點心、吵架、曬太陽都在天井。','主樓有客廳與大餐廳，十人以上的圓桌與長桌，是兄弟們最常碰面的地方。'],r:'<b>宗主</b>：二樓宗主套房（臥室、浴室、起居間、私人露台、辦公桌）<br><b>顧昭衡</b>：二樓，整齊到近乎制式，有獨立工作區<br><b>梁玄度</b>：北側一樓套房，直通香室與庭院<br><b>白懷石</b>：北側一樓，與梁玄度相鄰，床架與樓板經特殊加固'},
-    chu:{t:'廚房',e:'二十世紀・現代',p:['中式大廚房加現代設備，另有小茶水間。','鄺美蓮的地盤。她知道每位龍子的口味，也敢罵每一位。'],r:''},
-    dong:{t:'東院',e:'明清・現代',p:['隔音琴室（古今樂器，不許人亂碰）、書齋（藏書與工作桌）、茶室與香室（可開窗通風，配盤香茶具）。','梁玄度最常待在茶室；他不許殷照夜把香水味帶進來。'],r:'<b>晏清徵</b>：二樓，連通私人琴室，有隔音牆<br><b>容觀復</b>：二樓，附私人書房與閱讀區'},
-    xi:{t:'西院',e:'現代強化',p:['室內外兩處練武場，地面經特殊強化，普通器材撐不久。','娛樂室有電視、遊戲機、桌遊與投影，祝鳴珂常拉人打電動。另有客房。'],r:'<b>霍無咎</b>：二樓，靠近練武場，房間很空，只有器材與護具<br><b>祝鳴珂</b>：二樓，色彩最多、收藏品最多<br><b>殷照夜</b>：最外側二樓，獨立樓梯，方便深夜出入'},
-    zu:{t:'九龍祖堂',e:'古代・初代',p:['供九尊龍子神龕，龕前各有長明燈，堂下是初代龍契石壇。正式供奉、歲首祭禮、擇主都在這裡，由祀典師高仲儀主持。','祖堂是公共祭祀場所。九子在這裡不宜完全化形。門邊春聯每年都有人嫌貼歪。'],r:''},
-    bei:{t:'碑廊・藏書樓・封碑庫',e:'古代',p:['碑廊記歷代宗主事蹟；藏書樓收宗門史冊、古籍與歷代文書，本目錄即在此編成；封碑庫在地下，存放鎮地石碑。','部分記錄經過轉抄修訂，未必完整。'],r:''},
-    shen:{t:'舊審堂',e:'古代',p:['已停用，保留古代神判設施，由顧昭衡封閉。','宗主可以要求開放，他會帶你去。'],r:''},
-    hq:{t:'後勤區',e:'二十世紀',p:['洗衣房、員工休息室、維修間、倉庫與舊庫房。','年節會堆滿各方送來的年禮，其中不少不能亂碰。'],r:''},
-    hou:{t:'後山與觀風台',e:'山體',p:['後山不能隨意動土，但可以散步。觀風台是高處的石台，可以看山勢、夜空與遠處的燈火。','應青蘿每年會來檢查後山有沒有被亂挖。'],r:'<b>岑歸岫</b>：靠後山的二樓邊間，常開窗，露台可直通觀風台'}
-  };
-  var panel=document.getElementById('mapPanel');
-  var zones=document.querySelectorAll('.zone');
-  function show(k){
-    var d=D[k];if(!d)return;
-    zones.forEach(function(z){z.classList.toggle('on',z.getAttribute('data-k')===k)});
-    panel.innerHTML='<h4>'+d.t+'</h4><div class="era">'+d.e+'</div>'+d.p.map(function(x){return '<p>'+x+'</p>'}).join('')+(d.r?'<div class="rooms">'+d.r+'</div>':'');
-  }
-  zones.forEach(function(z){
-    z.setAttribute('tabindex','0');
-    z.addEventListener('click',function(){show(z.getAttribute('data-k'))});
-    z.addEventListener('keydown',function(ev){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();show(z.getAttribute('data-k'))}});
-  });
-  show('men');
+  const T=MAP.labels;
+  const g=(k,shape,texts)=>`<g class="zone" data-k="${k}" tabindex="0">${shape}${texts}</g>`;
+  const t=(x,y,s,c)=>`<text ${c?'class="s" ':''}x="${x}" y="${y}">${s}</text>`;
+  document.getElementById('mapbox').innerHTML=`<svg viewBox="0 0 600 760" role="img" aria-label="鎮瀾院全圖">
+   <defs><pattern id="hill" width="24" height="12" patternUnits="userSpaceOnUse"><path d="M0 12 Q6 2 12 12 T24 12" fill="none" stroke="#4f9a8c" stroke-width="1" opacity=".55"/></pattern></defs>
+   <rect x="8" y="8" width="584" height="744" fill="none" stroke="#c9a24a" stroke-width="3"/><rect x="16" y="16" width="568" height="728" fill="none" stroke="#1d5b5c"/>
+   <text x="560" y="44" font-size="14" fill="#9c5a2e" text-anchor="middle">${MAP.north}</text><path d="M560 50 L560 80" stroke="#9c5a2e" stroke-width="1.5"/>
+   <rect x="40" y="178" width="520" height="520" fill="none" stroke="#9c5a2e" stroke-width="2" stroke-dasharray="7 4"/>
+   ${g('hou','<path d="M30 165 Q120 40 220 110 Q300 30 380 100 Q470 30 570 165 Z" style="fill:url(#hill)"/><path d="M30 165 Q120 40 220 110 Q300 30 380 100 Q470 30 570 165 Z"/><circle cx="300" cy="92" r="16"/>',t(300,142,T.hou[0]))}
+   ${g('bei','<rect x="56" y="196" width="140" height="110"/>',t(126,240,T.bei[0])+t(126,264,T.bei[1])+t(126,290,T.bei[2],1))}
+   ${g('zu','<rect x="216" y="196" width="168" height="110"/>',t(300,246,T.zu[0])+t(300,272,T.zu[1],1))}
+   ${g('shen','<rect x="404" y="196" width="140" height="110"/>',t(474,246,T.shen[0])+t(474,272,T.shen[1],1))}
+   ${g('xi','<rect x="56" y="326" width="140" height="190"/>',t(126,410,T.xi[0])+t(126,436,T.xi[1],1))}
+   ${g('zhu','<rect x="216" y="326" width="168" height="190"/><rect x="262" y="380" width="76" height="76" style="fill:rgba(169,211,197,.5)"/>',t(300,358,T.zhu[0])+t(300,423,T.zhu[1],1)+t(300,496,T.zhu[2],1))}
+   ${g('dong','<rect x="404" y="326" width="140" height="190"/>',t(474,410,T.dong[0])+t(474,436,T.dong[1],1))}
+   ${g('hq','<rect x="56" y="536" width="140" height="70"/>',t(126,578,T.hq[0]))}
+   ${g('ting','<rect x="216" y="536" width="168" height="70"/>',t(300,578,T.ting[0]))}
+   ${g('chu','<rect x="404" y="536" width="140" height="70"/>',t(474,578,T.chu[0]))}
+   ${g('men','<rect x="150" y="626" width="300" height="60"/>',t(300,663,T.men[0]))}
+   <path d="M300 686 L300 740" stroke="#9c5a2e" stroke-width="2" stroke-dasharray="4 4"/><text x="300" y="736" font-size="11" fill="#9c5a2e" text-anchor="middle">${MAP.road}</text></svg>`;
+  const panel=document.getElementById('mapPanel'),zones=document.querySelectorAll('.zone');
+  function show(k){const d=MAP.zones[k];zones.forEach(z=>z.classList.toggle('on',z.dataset.k===k));
+    panel.innerHTML=`<h4>${d.t}</h4><div class="era">${d.e}</div>${d.p.map(x=>`<p>${x}</p>`).join('')}${d.r?`<div class="rooms">${d.r}</div>`:''}`}
+  zones.forEach(z=>{z.onclick=()=>show(z.dataset.k);z.onkeydown=e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();show(z.dataset.k)}}});
+  show('bei');
 })();
 
-/* 未編目：連點編者印三次 */
-(function(){
-  var seal=document.getElementById('hseal'),hid=document.getElementById('hidden'),n=0,timer;
-  function hit(){
-    n++;seal.classList.remove('shake');void seal.offsetWidth;seal.classList.add('shake');
-    clearTimeout(timer);timer=setTimeout(function(){n=0},1500);
-    if(n>=3){hid.classList.add('show');hid.setAttribute('aria-hidden','false');hid.scrollIntoView({behavior:'smooth'});n=0;}
-  }
-  seal.addEventListener('click',hit);
-  seal.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();hit()}});
-  document.getElementById('openSecret').addEventListener('click',function(){
-    document.getElementById('warnBox').style.display='none';
-    document.getElementById('secret').classList.add('show');
-  });
-})();
-
-/* 開場 */
+/* ════════ 互動 ════════ */
 (function(){
   const gate=document.getElementById('gate');
   document.getElementById('enter').onclick=()=>{gate.classList.add('gone');document.body.classList.remove('locked');document.body.classList.add('in')};
   const pv=document.getElementById('pv'),f=document.getElementById('pvf');
-  document.querySelectorAll('[data-pv]').forEach(b=>b.onclick=()=>{f.src='https://www.youtube-nocookie.com/embed/MXtkTV5NlK0?autoplay=1&rel=0';pv.classList.add('show')});
+  document.querySelectorAll('[data-pv]').forEach(b=>b.onclick=()=>{f.src='https://www.youtube-nocookie.com/embed/XE005UXBNCU?autoplay=1&rel=0';pv.classList.add('show')});
   const close=()=>{pv.classList.remove('show');f.src=''};
   document.getElementById('pvclose').onclick=close;pv.onclick=e=>{if(e.target===pv)close()};
   document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+  // 凡例熱區：展開凡例
+  document.querySelector('[data-fanli]').addEventListener('click',()=>{document.getElementById('fanli-box').open=true});
 })();
 
-/* 九盞燈：讀到哪一段亮到哪一盞，亮了就不熄 */
+/* 旁白逐段浮現；第一章影片進入畫面時播放一次 */
+(function(){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.25});
+  document.querySelectorAll('.narr').forEach(n=>io.observe(n));
+  const v=document.getElementById('flood');let played=false;
+  const vo=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting&&!played){played=true;v.play().catch(()=>{v.controls=true})}}),{threshold:.5});
+  vo.observe(v);
+})();
+
+/* 九盞燈 */
 (function(){
   const links=[...document.querySelectorAll('.lamps a')];
   const done=document.createElement('div');done.className='lamp-done';done.textContent='九盞燈，照一扇門。';document.body.appendChild(done);
   let fired=false;
   function check(){
     const vh=innerHeight;
-    links.forEach(a=>{const el=document.getElementById(a.dataset.k);if(!el)return;const r=el.getBoundingClientRect();
-      if(r.top<vh*.6&&r.bottom>0||r.bottom<vh*.6)a.classList.add('lit')});
+    links.forEach(a=>{const el=document.getElementById(a.dataset.k);if(!el)return;const r=el.getBoundingClientRect();if(r.top<vh*.7||innerHeight+scrollY>=document.documentElement.scrollHeight-8)a.classList.add('lit')});
     if(!fired&&links.every(a=>a.classList.contains('lit'))){fired=true;document.body.classList.add('alllit');done.classList.add('show');setTimeout(()=>done.classList.remove('show'),4200)}
   }
   addEventListener('scroll',check,{passive:true});addEventListener('resize',check);
 })();
 
-/* 書架左下那疊舊紙：連點三下 */
+/* 未編目：書架左下的舊紙，或尾聲的觀復印，連點三下 */
 (function(){
-  const h=document.getElementById('hstack'),hid=document.getElementById('hidden');let n=0,t;
-  h.addEventListener('click',()=>{n++;h.classList.remove('wig');void h.offsetWidth;h.classList.add('wig');clearTimeout(t);t=setTimeout(()=>n=0,1500);
-    if(n>=3){n=0;hid.classList.add('show');hid.setAttribute('aria-hidden','false');hid.scrollIntoView({behavior:'smooth'})}});
+  const hid=document.getElementById('hidden');
+  function reveal(){hid.classList.add('show');hid.setAttribute('aria-hidden','false');setTimeout(()=>hid.scrollIntoView({behavior:'smooth'}),50)}
+  function triple(el,cls){let n=0,t;const hit=()=>{n++;el.classList.remove(cls);void el.offsetWidth;el.classList.add(cls);clearTimeout(t);t=setTimeout(()=>n=0,1500);if(n>=3){n=0;reveal()}};
+    el.addEventListener('click',hit);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();hit()}})}
+  triple(document.getElementById('hstack'),'wig');triple(document.getElementById('hseal'),'shake');
+  document.getElementById('openSecret').onclick=()=>{document.getElementById('warnBox').style.display='none';document.getElementById('secret').classList.add('show')};
 })();
 </script>
 </body>
